@@ -49,4 +49,5 @@ def add_product_to_catalog(name, description, price, image, category):
             
     except Exception as e:
         print(f"Erreur lors de l'ajout du produit : {e}")
-        return f"Erreur : {e}" 
+        return f"Erreur : {e}"
+
