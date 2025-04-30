@@ -9,9 +9,7 @@ from .... import state
 class LogInForm(LogInFormTemplate):
   def __init__(self, **properties):
     self.init_components(**properties)
-    self.update_button_visibility()
-
-  
+    
 
   def on_submit_click(self, **event_args):
     """Gère la soumission du formulaire de connexion."""
