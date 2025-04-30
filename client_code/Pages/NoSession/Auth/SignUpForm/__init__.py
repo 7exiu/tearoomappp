@@ -26,7 +26,7 @@ class SignUpForm(SignUpFormTemplate):
     # Configuration des boutons
     self.sign_up_form_buttons.submit_button.text = "S'inscrire"
     self.sign_up_form_buttons.submit_button.role = "filled-button"
-    self.sign_up_form_buttons.cancel_button.text = "Annuler"
+    self.sign_up_form_buttons.reset_button.text = "Annuler"
     
     # Initialisation du label de force du mot de passe
     self.password_strength.text = ""
@@ -36,7 +36,7 @@ class SignUpForm(SignUpFormTemplate):
     """Configure les gestionnaires d'événements"""
     self.credentials_fields.password_field.add_event_handler('change', self.on_password_change)
     self.sign_up_form_buttons.submit_button.add_event_handler('click', self.submit_click)
-    self.sign_up_form_buttons.cancel_button.add_event_handler('click', self.cancel_click)
+    self.sign_up_form_buttons.reset_button.add_event_handler('click', self.cancel_click)
 
   def on_password_change(self, **event_args):
     """Gère le changement de mot de passe et met à jour l'indicateur de force"""
