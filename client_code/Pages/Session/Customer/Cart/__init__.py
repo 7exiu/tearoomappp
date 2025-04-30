@@ -15,14 +15,13 @@ class Cart(CartTemplate):
         self.cart_repeating_panel.item_template = SouCart
         self.load_cart()
 
-<<<<<<< HEAD
+
     def button_pop_click(self, **event_args):
       alert("Votre commande a était prise en compte")
       anvil.server.call('delete_card')
 
 
-=======
->>>>>>> 72b5ac8 (ton message de commit ici44445434)
+
     def load_cart(self):
         try:
             user_info = anvil.server.call('get_user_info')
@@ -56,10 +55,7 @@ class Cart(CartTemplate):
                 Notification("Erreur lors de la validation de la commande", style="danger").show()
         except Exception as e:
             Notification(f"Erreur lors de la validation de la commande : {e}", style="danger").show()
-<<<<<<< HEAD
 
-=======
->>>>>>> 72b5ac8 (ton message de commit ici44445434)
 
     def calculer_total(self):
       total = sum(item['price'] for item in state.cart_items)

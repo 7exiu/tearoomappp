@@ -1,9 +1,14 @@
 from ._anvil_designer import BookingsTemplate
 from anvil import *
 import anvil.server
-from .TableCard import TableCard
-from .GoodieCard import GoodieCard
-from .TeaCard import TeaCard
+
+import anvil.tables as tables
+import anvil.tables.query as q
+from anvil.tables import app_tables
+
+from ....NoSession.Products.Tables.TableCard import TableCard
+from ....NoSession.Products.Goodies.GoodieCard import GoodieCard
+from ....NoSession.Products.Teas.TeaCard import TeaCard
 
 
 class Bookings(BookingsTemplate):
@@ -23,23 +28,17 @@ class Bookings(BookingsTemplate):
         self.load_tables()
         self.load_goodies()
         self.load_teas()
-
-    def load_tables(self):
-        try:
-            tables = anvil.server.call('get_tables')
-            self.tables_panel.clear()
-            for table in tables:
-                self.tables_panel.add_component(TableCard(item=table))
-        except Exception as e:
-            Notification(f"Erreur lors du chargement des tables : {e}", style="warning").show()
-
+      except:
+        print('aieaie')
+    
+  
     def load_goodies(self):
-        try:
+      try:
             goodies = anvil.server.call('get_goodies')
             self.goodie_panel.clear()
             for goodie in goodies:
                 self.goodie_panel.add_component(GoodieCard(item=goodie))
-        except Exception as e:
+      except Exception as e:
             Notification(f"Erreur lors du chargement des goodies : {e}", style="warning").show()
 
     def load_teas(self):
