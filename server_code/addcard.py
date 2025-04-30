@@ -192,25 +192,13 @@ def panier():
 
 @anvil.server.callable
 def delete_card():
-    try:
-        print("=== Suppression du panier ===")
-        user_data = anvil.server.call('get_user_info')
-        user_id = user_data['user_id']
-        print(f"ID utilisateur : {user_id}")
-        
-        produits_a_modifier = app_tables.temp.search(id_user=user_id, etat=False)
-        count = 0
-        for produit in produits_a_modifier:
-            produit['etat'] = True
-            count += 1
-        
-        print(f"✅ {count} articles marqués comme supprimés")
-        return True
-    except Exception as e:
-        print("❌ Erreur dans delete_card:")
-        print(str(e))
-        print(traceback.format_exc())
-        return False
+    user_data = anvil.server.call('get_user_info')
+    user_id = user_data['user_id']
+    produits_a_modifier = app_tables.temp.search(id_user=user_id, etat=False)
+    for produit in produits_a_modifier:
+        produit['etat'] = True
+    print("parfait")
+    return
 
 @anvil.server.callable
 def check_orders_table():
