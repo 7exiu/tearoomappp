@@ -103,7 +103,7 @@ class SignUpForm(SignUpFormTemplate):
             # Redirection vers la page de connexion
             get_open_form().load_page("login")
         else:
-            Notification(f"Erreur lors de l'inscription : {response}", style="danger").show()
+            Notification(f"{response}", style="success").show()
 
     except Exception as e:
         Notification(f"Erreur lors de l'inscription : {str(e)}", style="danger").show()
