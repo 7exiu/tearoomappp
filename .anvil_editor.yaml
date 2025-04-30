@@ -28,9 +28,6 @@ unique_ids:
     Pages.Session.Admin.ListClients: '1744396206571535253353316.29486'
     Pages.Session.Admin.ListClients.ListClientsCard: '1745872372418806041315226.0874'
     Pages.Session.Admin.ListProducts: '1744396183212130869674095.23087'
-    Pages.Session.Admin.ListProducts.Goodiescard_admin: 3WLSAN5DKWVBDYDVWU5V647XFYE2BHO4
-    Pages.Session.Admin.ListProducts.TableCard_admin: JFDF3M2RQ6GZFJROC4SRY6O4H7VBIULE
-    Pages.Session.Admin.ListProducts.Teacard_admin: UEQFS37HCIN5LY6NWYUK4DZFXDXW2SHO
     Pages.Session.Customer.Bookings: '1744551513482605399906947.8003'
     Pages.Session.Customer.Cart: '1744395927988337302771335.7637'
     Pages.Session.Customer.Cart.SouCart: '1745837350795786572123698.3252'
