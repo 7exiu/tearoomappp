@@ -50,17 +50,7 @@ class Dashboard(DashboardTemplate):
     self.current_page = Bookings()
     self.dashboard_panel.clear()
     self.dashboard_panel.add_component(self.current_page)
-    self.update_navigation_style('link_1')
-
-  def update_navigation_style(self, active_link_name):
-    """Met à jour le style des liens de navigation."""
-    for link in [self.profile_link, self.cart_link_copy, self.orders_link_copy, self.link_1]:
-      if link.name == active_link_name:
-        link.role = 'selected'
-        link.background = '#c19e6b'  # Couleur plus foncée pour le lien actif
-      else:
-        link.role = None
-        link.background = '#d4b483'  # Couleur normale pour les liens inactifs
+    
 
   def profile_link_click(self, **event_args):
     """Gère le clic sur le lien Profile."""
