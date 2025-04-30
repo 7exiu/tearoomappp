@@ -15,12 +15,13 @@ class Dashboard(DashboardTemplate):
     self.init_components(**properties)
     self.current_page = None
     self.user_info = anvil.server.call('get_user_info')
-    self.user = anvil.server.call('get_user_by_email', self.user_info['user_email'])
-    
+    if self.user_info and self.user_info.get('user_id'):
+      self.user = anvil.server.call('get_user_by_id', self.user_info['user_id'])
+    else:
+      self.user = None
     # Vérifier si l'utilisateur est admin
     if self.user and self.user['is_admin']:
       self.admin_button.visible = True
-    
     # Charger automatiquement la page Profile
     self.load_profile()
 
@@ -50,7 +51,16 @@ class Dashboard(DashboardTemplate):
     self.current_page = Bookings()
     self.dashboard_panel.clear()
     self.dashboard_panel.add_component(self.current_page)
-    
+    self.update_navigation_style('link_1')
+
+  def update_navigation_style(self, active_link_name):
+    for link in [self.profile_link, self.cart_link_copy, self.orders_link_copy, self.link_1]:
+      if getattr(link, 'name', None) == active_link_name:
+        link.role = 'selected'
+        link.background = '#c19e6b'
+      else:
+        link.role = None
+        link.background = '#d4b483'
 
   def profile_link_click(self, **event_args):
     """Gère le clic sur le lien Profile."""
