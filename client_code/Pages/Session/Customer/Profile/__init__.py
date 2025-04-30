@@ -9,7 +9,7 @@ class Profile(ProfileTemplate):
     def __init__(self, user=None, **properties):
         print("🔄 Initialisation du profil...")
         self.init_components(**properties)
-        
+
         if user is None:
             print("📡 Aucun utilisateur fourni, tentative de récupération depuis le serveur...")
             try:
