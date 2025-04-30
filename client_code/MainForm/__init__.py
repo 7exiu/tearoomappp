@@ -18,6 +18,7 @@ from ..Pages.NoSession.Auth.LogInForm import LogInForm
 from ..Pages.Session.Customer.Cart import Cart
 from ..Pages.Session.Customer.Dashboard import Dashboard
 from ..Pages.NoSession.Products.Tables import Tables
+from ..Pages.Session.Admin.Dashboard_admin import Dashboard_admin
 
 
 class MainForm(MainFormTemplate):
@@ -69,7 +70,8 @@ class MainForm(MainFormTemplate):
       self.content_panel.add_component(Tables())
     elif page_name == "dashboard":
       self.content_panel.add_component(Dashboard())
-     
+    elif page_name == "dashboard_admin":
+      self.content_panel.add_component(Dashboard_admin())
 
   def terms_of_service_button_click(self, **event_args):
     """This method is called when the button is clicked"""

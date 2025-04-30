@@ -33,7 +33,28 @@ class Bookings(BookingsTemplate):
                 self.tables_panel.add_component(Label(text="Pas de réservation", align="center", font_size=16, foreground="#BA1A1A"))
             else:
                 for table in tables:
-                    self.tables_panel.add_component(Image(source=table['image']))
+                    # Créer un conteneur pour les informations de la table
+                    table_info = FlowPanel()
+                    
+                    # Ajouter le nom de la table
+                    name_label = Label(text=f"Table: {table['name']}", font_size=16, font="italic")
+                    table_info.add_component(name_label)
+                    
+                    # Ajouter la capacité
+                    capacity_label = Label(text=f"Capacité: {table['chairs_count']} personnes", font_size=14)
+                    table_info.add_component(capacity_label)
+                    
+                    # Ajouter le statut de disponibilité
+                    status = "Disponible" if table['is_available'] else "Non disponible"
+                    status_label = Label(text=f"Statut: {status}", font_size=14, foreground="#4CAF50" if table['is_available'] else "#F44336")
+                    table_info.add_component(status_label)
+                    
+                    # Ajouter un séparateur
+                    table_info.add_component(Spacer(height=10))
+                    
+                    # Ajouter le conteneur au panel principal
+                    self.tables_panel.add_component(table_info)
+                    
         except Exception as e:
             Notification(f"Erreur lors du chargement des tables : {e}", style="warning").show()
 
