@@ -1,59 +1,11 @@
 components:
-- components:
-  - name: title_label
-    properties:
-      text: Mes Commandes
-      font_size: 24
-      font_family: 'Playfair Display'
-      foreground: '#8b7355'
-      bold: true
-      spacing:
-        margin: ['0', '0', '20', '0']
-    type: Label
-  - components: []
-    name: orders_panel
-    properties:
-      background: '#ffffff'
-      border_radius: '12px'
-      box_shadow: '0 4px 6px rgba(0,0,0,0.1)'
-      spacing:
-        padding: ['20', '20', '20', '20']
-    type: ColumnPanel
-<<<<<<< HEAD
-  - name: repeating_panel_1
-    properties:
-      item_template: Pages.Session.Customer.Orders.ItemTemplate1
-      background: 'transparent'
-    type: RepeatingPanel
-=======
->>>>>>> 4f7b4ab (style)
-  - event_bindings: {click: menu_button_click}
-    name: menu_button
-    properties:
-      background: '#8b7355'
-      text: Retour au Menu
-      icon: fa:cutlery
-      icon_align: left
-      foreground: '#ffffff'
-      font_size: 16
-      font_family: 'Quicksand'
-      spacing:
-        margin: ['20', '0', '0', '0']
-        padding: ['15', '15', '15', '15']
-      hover_background: '#7a6448'
-      border_radius: '8px'
-      box_shadow: '0 2px 4px rgba(0,0,0,0.1)'
-    type: Link
-  layout_properties: {slot: default}
-  name: column_panel_1
-  properties:
-    background: '#f5f0e6'
-    spacing:
-      padding: ['20', '20', '20', '20']
-  type: ColumnPanel
-container:
-  properties:
-    background: '#f5f0e6'
-    html: '@theme:standard-page.html'
-  type: HtmlTemplate
+- layout_properties: {grid_position: 'KBRNYW,UDGEWB'}
+  name: repeating_panel_1
+  properties: {item_template: Pages.Session.Customer.Orders.ItemTemplate1}
+  type: RepeatingPanel
+- layout_properties: {grid_position: 'SOZTOK,EOUBAU'}
+  name: recu
+  properties: {text: Télécharger reçu}
+  type: Button
+container: {type: ColumnPanel}
 is_package: true
