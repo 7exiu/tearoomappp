@@ -13,72 +13,90 @@ from ...Customer.Profile import Profile
 
 
 class Dashboard_admin(Dashboard_adminTemplate):
-  def __init__(self, **properties):
-    print("🛠 Initialisation du Dashboard...")
-    self.init_components(**properties)
+    def __init__(self, **properties):
+        print("🛠 Initialisation du Dashboard Administrateur...")
+        self.init_components(**properties)
+        self.current_page = None
 
-    try:
-      print("📡 Connexion au serveur pour récupérer les informations utilisateur...")
-      self.user_info = anvil.server.call("get_user_info")
-      print(f"✅ Infos utilisateur récupérées : {self.user_info}")
+        try:
+            print("📡 Connexion au serveur pour récupérer les informations utilisateur...")
+            self.user_info = anvil.server.call("get_user_info")
+            print(f"✅ Infos utilisateur récupérées : {self.user_info}")
 
-      if not self.user_info.get("user_email"):
-        raise ValueError("Aucun email utilisateur récupéré.")
+            if not self.user_info.get("user_email"):
+                raise ValueError("Aucun email utilisateur récupéré.")
 
-      print("🔎 Recherche de l'utilisateur dans la base de données...")
-      self.user = anvil.server.call("get_user_by_email", self.user_info["user_email"])
+            print("🔎 Recherche de l'utilisateur dans la base de données...")
+            self.user = anvil.server.call("get_user_by_email", self.user_info["user_email"])
 
-      if not self.user:
-        raise ValueError("Utilisateur introuvable dans la base de données.")
+            if not self.user:
+                raise ValueError("Utilisateur introuvable dans la base de données.")
 
-      print(f"🎯 Utilisateur trouvé : {self.user}")
+            print(f"🎯 Utilisateur trouvé : {self.user}")
 
-      # Nettoyer l'ancien contenu du dashboard_panel
-      print("🧹 Nettoyage du dashboard_panel...")
-      self.dashboard_panel.clear()
+            # Charger automatiquement la page Profile
+            self.load_profile()
 
-      # Charger le formulaire Profile en passant l'utilisateur
-      print("➕ Ajout du formulaire Profile au dashboard_panel...")
-      profile_form = Profile(self.user)
-      self.dashboard_panel.add_component(profile_form)
+        except Exception as e:
+            print(f"❌ Erreur dans Dashboard : {e}")
+            Notification(f"Erreur lors du chargement du Dashboard : {e}", style="danger").show()
 
-      print("✅ Formulaire Profile affiché avec succès dans le Dashboard.")
+    def load_profile(self):
+        """Charge la page Profile dans le dashboard."""
+        self.current_page = Profile(self.user)
+        self.dashboard_panel.clear()
+        self.dashboard_panel.add_component(self.current_page)
+        self.update_navigation_style('profile_link')
 
-    except Exception as e:
-      print(f"❌ Erreur dans Dashboard : {e}")
-      Notification(
-        f"Erreur lors du chargement du Dashboard : {e}", style="danger"
-      ).show()
+    def load_add_product(self):
+        """Charge la page Ajouter un Produit dans le dashboard."""
+        self.current_page = AddProduct()
+        self.dashboard_panel.clear()
+        self.dashboard_panel.add_component(self.current_page)
+        self.update_navigation_style('cart_link_copy')
 
-  def link_1_click(self, **event_args):
-    """Méthode appelée lorsque le lien est cliqué"""
-    listproduct = ListProducts()
-    self.dashboard_panel.clear()  # On vide le panneau
-    self.dashboard_panel.add_component(listproduct)  # Exemple de contenu à afficher
+    def load_list_clients(self):
+        """Charge la page Liste des Clients dans le dashboard."""
+        self.current_page = ListClients()
+        self.dashboard_panel.clear()
+        self.dashboard_panel.add_component(self.current_page)
+        self.update_navigation_style('orders_link_copy')
 
-  def cart_link_click(self, **event_args):
-    """Méthode appelée lorsque le lien Cart est cliqué"""
-    self.dashboard_panel.clear()  # On vide le panneau
-    addproduct = AddProduct()  # On charge le formulaire Cart
-    self.dashboard_panel.add_component(addproduct)  # On ajoute Cart au dashboard_panel
+    def load_list_products(self):
+        """Charge la page Liste des Produits dans le dashboard."""
+        self.current_page = ListProducts()
+        self.dashboard_panel.clear()
+        self.dashboard_panel.add_component(self.current_page)
+        self.update_navigation_style('link_1')
 
-  def orders_link_click(self, **event_args):
-    """Méthode appelée lorsque le lien Orders est cliqué"""
-    self.dashboard_panel.clear()  # On vide le panneau
-    listclient = ListClients() # On charge le formulaire Cart
-    self.dashboard_panel.add_component(listclient)
-     # On ajoute Orders au dashboard_panel
+    def update_navigation_style(self, active_link_name):
+        """Met à jour le style des liens de navigation."""
+        for link in [self.profile_link, self.cart_link_copy, self.orders_link_copy, self.link_1]:
+            if getattr(link, 'name', None) == active_link_name:
+                link.role = 'selected'
+                link.background = '#c19e6b'
+            else:
+                link.role = None
+                link.background = '#d4b483'
 
-  def profile_link_click(self, **event_args):
-    """Méthode appelée lorsque le lien Profile est cliqué"""
-    self.dashboard_panel.clear()  # On vide le panneau
-    profile_form = Profile(self.user)  # On charge à nouveau le formulaire Profile
-    self.dashboard_panel.add_component(
-      profile_form
-    )  # On ajoute Profile au dashboard_panel
+    def profile_link_click(self, **event_args):
+        """Gère le clic sur le lien Profile."""
+        self.load_profile()
 
-  def link_2_click(self, **event_args):
-    get_open_form().load_page("landing")
-    pass
+    def cart_link_click(self, **event_args):
+        """Gère le clic sur le lien Ajouter un Produit."""
+        self.load_add_product()
+
+    def orders_link_click(self, **event_args):
+        """Gère le clic sur le lien Liste des Clients."""
+        self.load_list_clients()
+
+    def link_1_click(self, **event_args):
+        """Gère le clic sur le lien Liste des Produits."""
+        self.load_list_products()
+
+    def menu_button_click(self, **event_args):
+        """Gère le clic sur le bouton Retour au Menu."""
+        get_open_form().load_page('menu')
 
   

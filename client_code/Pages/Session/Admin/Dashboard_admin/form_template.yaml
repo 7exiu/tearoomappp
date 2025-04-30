@@ -3,60 +3,121 @@ components:
   layout_properties: {slot: default}
   name: dashboard_panel
   properties:
+    background: '#f5f0e6'
     spacing:
       margin: [null, null, null, 0]
-      padding: [null, '0', null, 0]
+      padding: [null, '20', null, '20']
   type: ColumnPanel
 - components:
   - event_bindings: {click: profile_link_click}
     name: profile_link
     properties:
-      background: '#f9f1f3'
+      background: '#d4b483'
       border: ''
+      border_radius: 8px
+      box_shadow: 0 2px 4px rgba(0,0,0,0.1)
+      font_family: Quicksand
+      font_size: 16
+      foreground: '#ffffff'
+      hover_background: '#c19e6b'
+      icon: fa:user
+      icon_align: left
       role: selected
       spacing:
-        margin: ['3', '3', '3', '3']
-      text: Profile
+        margin: ['10', '10', '10', '10']
+        padding: ['15', '15', '15', '15']
+      text: Mon Profil
     type: Link
-  - components: []
-    event_bindings: {click: cart_link_click}
-    layout_properties: {}
+  - event_bindings: {click: cart_link_click}
     name: cart_link_copy
     properties:
+      background: '#d4b483'
+      border_radius: 8px
+      box_shadow: 0 2px 4px rgba(0,0,0,0.1)
+      font_family: Quicksand
+      font_size: 16
+      foreground: '#ffffff'
+      hover_background: '#c19e6b'
+      icon: fa:plus
+      icon_align: left
       spacing:
-        margin: [null, '3', null, '3']
+        margin: ['10', '10', '10', '10']
+        padding: ['15', '15', '15', '15']
       text: Ajouter un Produit
     type: Link
   - event_bindings: {click: orders_link_click}
-    layout_properties: {}
     name: orders_link_copy
     properties:
+      background: '#d4b483'
+      border_radius: 8px
+      box_shadow: 0 2px 4px rgba(0,0,0,0.1)
+      font_family: Quicksand
+      font_size: 16
+      foreground: '#ffffff'
+      hover_background: '#c19e6b'
+      icon: fa:users
+      icon_align: left
       spacing:
-        margin: [null, '3', null, '3']
+        margin: ['10', '10', '10', '10']
+        padding: ['15', '15', '15', '15']
       text: Liste des Clients
     type: Link
-  - components: []
-    event_bindings: {click: link_1_click}
-    layout_properties: {}
+  - event_bindings: {click: link_1_click}
     name: link_1
     properties:
+      background: '#d4b483'
+      border_radius: 8px
+      box_shadow: 0 2px 4px rgba(0,0,0,0.1)
+      font_family: Quicksand
+      font_size: 16
+      foreground: '#ffffff'
+      hover_background: '#c19e6b'
+      icon: fa:list
+      icon_align: left
       spacing:
-        margin: [null, '3', null, '3']
-      text: 'Liste des produits '
+        margin: ['10', '10', '10', '10']
+        padding: ['15', '15', '15', '15']
+      text: Liste des Produits
+    type: Link
+  - event_bindings: {click: menu_button_click}
+    name: menu_button
+    properties:
+      background: '#8b7355'
+      border_radius: 8px
+      box_shadow: 0 2px 4px rgba(0,0,0,0.1)
+      font_family: Quicksand
+      font_size: 16
+      foreground: '#ffffff'
+      hover_background: '#7a6448'
+      icon: fa:cutlery
+      icon_align: left
+      spacing:
+        margin: ['10', '10', '10', '10']
+        padding: ['15', '15', '15', '15']
+      text: Retour au Menu
     type: Link
   layout_properties: {slot: left-nav}
   name: linear_panel_1
-  properties: {}
+  properties:
+    background: '#f5f0e6'
+    spacing:
+      padding: ['20', '20', '20', '20']
   type: LinearPanel
 - layout_properties: {slot: title}
   name: outlined_1
-  properties: {background: 'theme:Primary Container', bold: true, italic: true, role: outlined, text: 'DASHBOARD_Admin ', underline: true}
+  properties:
+    background: '#8b7355'
+    bold: true
+    border_radius: 8px
+    box_shadow: 0 2px 4px rgba(0,0,0,0.1)
+    font_family: Playfair Display
+    font_size: 24
+    foreground: '#ffffff'
+    role: outlined
+    spacing:
+      padding: ['20', '20', '20', '20']
+    text: Tableau de Bord Administrateur
   type: TextBox
-- event_bindings: {click: link_2_click}
-  layout_properties: {slot: nav-right}
-  name: link_2
-  properties: {background: '#ecccc1', text: TeasRoom}
-  type: Link
 container:
   properties: {background: '#dbbeb4', html: '@theme:standard-page.html'}
   type: HtmlTemplate
