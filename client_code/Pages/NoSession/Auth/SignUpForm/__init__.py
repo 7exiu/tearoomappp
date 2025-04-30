@@ -13,18 +13,38 @@ import time
 class SignUpForm(SignUpFormTemplate):
   def __init__(self, **properties):
     self.init_components(**properties)
+    # Configuration des composants
+    self.setup_components()
     # Initialisation des gestionnaires d'événements
+    self.setup_event_handlers()
+
+  def setup_components(self):
+    """Configure les composants du formulaire"""
+    # Configuration du chargeur de photo
+    self.photo_loader.file_types = ['.jpg', '.png']
+    
+    # Configuration des boutons
+    self.sign_up_form_buttons.submit_button.text = "S'inscrire"
+    self.sign_up_form_buttons.submit_button.role = "filled-button"
+    self.sign_up_form_buttons.cancel_button.text = "Annuler"
+    
+    # Initialisation du label de force du mot de passe
+    self.password_strength.text = ""
+    self.password_strength.foreground = "#000000"
+
+  def setup_event_handlers(self):
+    """Configure les gestionnaires d'événements"""
     self.credentials_fields.password_field.add_event_handler('change', self.on_password_change)
     self.sign_up_form_buttons.submit_button.add_event_handler('click', self.submit_click)
-    self.photo_loader.file_types = ['.jpg', '.png']
+    self.sign_up_form_buttons.cancel_button.add_event_handler('click', self.cancel_click)
 
   def on_password_change(self, **event_args):
+    """Gère le changement de mot de passe et met à jour l'indicateur de force"""
     password = self.credentials_fields.password_field.text
     if password:
       entropie, taille_alphabet, redon = anvil.server.call('calculer_entropie', password)
       securite = anvil.server.call('evaluer_securite', entropie)
       
-      # Mise à jour de l'indicateur visuel
       if securite == "Invalide":
         self.password_strength.text = "Le mot de passe doit contenir au moins 12 caractères, incluant majuscules, minuscules, chiffres et caractères spéciaux"
         self.password_strength.foreground = "#BA1A1A"  # Rouge pour erreur
@@ -40,7 +60,7 @@ class SignUpForm(SignUpFormTemplate):
       self.password_strength.text = ""
       
   def submit_click(self, **event_args):
-    """Cette méthode est appelée quand le bouton de soumission est cliqué"""
+    """Gère la soumission du formulaire d'inscription"""
     try:
         # Récupération des valeurs des champs
         photo = self.photo_loader.file
@@ -80,13 +100,6 @@ class SignUpForm(SignUpFormTemplate):
         
         if response == "success":
             Notification("Inscription réussie ! Vous pouvez maintenant vous connecter.", style="success").show()
-            # Réinitialisation des champs
-            self.name_fields.firstname_field.text = ""
-            self.name_fields.lastname_field.text = ""
-            self.credentials_fields.email_field.text = ""
-            self.credentials_fields.password_field.text = ""
-            self.confirmed_password_field.text = ""
-            self.password_strength.text = ""
             # Redirection vers la page de connexion
             get_open_form().load_page("login")
         else:
@@ -94,6 +107,10 @@ class SignUpForm(SignUpFormTemplate):
 
     except Exception as e:
         Notification(f"Erreur lors de l'inscription : {str(e)}", style="danger").show()
+
+  def cancel_click(self, **event_args):
+    """Redirige vers la page de connexion lors de l'annulation"""
+    get_open_form().load_page("login")
 
   def file_loader_1_change(self, file, **event_args):
     """This method is called when a new file is loaded into this FileLoader"""
