@@ -67,11 +67,9 @@ class Bookings(BookingsTemplate):
         get_open_form().load_page("profile")
 
     def teas_list_button_click(self, **event_args):
-      """This method is called when the button is clicked"""
-      pass
+      get_open_form().load_page("teas")
 
     def goodies_list_button_click(self, **event_args):
-      """This method is called when the button is clicked"""
-      pass
-
+      get_open_form().load_page("goodies")
+      
 

@@ -6,35 +6,54 @@ from anvil.tables import app_tables
 import anvil.server
 from .... import state
 
-
 class LogInForm(LogInFormTemplate):
   def __init__(self, **properties):
     self.init_components(**properties)
-    #state.register(self.on_state_change)
-    #self.on_state_change()
-    self.form_buttons.submit_button.add_event_handler('click', self.on_submit_click)
-    
+    self.update_button_visibility()
+
+  def update_button_visibility(self):
+    """Met à jour la visibilité des boutons en fonction de l'état de connexion."""
+    user_info = anvil.server.call('get_user_info')
+    if user_info:
+      # Utilisateur connecté
+      self.form_buttons.login_button.visible = False
+      self.form_buttons.dashboard_button.visible = True
+    else:
+      # Utilisateur non connecté
+      self.form_buttons.login_button.visible = True
+      self.form_buttons.dashboard_button.visible = False
+
   def on_submit_click(self, **event_args):
-    print("✅---------------------------------------")
-    email = self.credentials_fields.email_field.text
-    password = self.credentials_fields.password_field.text
-    if not email or not password:
-      Notification("All Fields must be filled", style="danger").show()
+    """Gère la soumission du formulaire de connexion."""
+    # Vérifier si les champs sont vides
+    if not self.credentials_fields.email_input.text or not self.credentials_fields.password_input.text:
+      Notification("Veuillez remplir tous les champs", style="danger").show()
       return
-    server_response = anvil.server.call('login_user', email, password) 
-    Notification(server_response, style="success").show()
+
+    try:
+      # Appeler la fonction serveur pour la connexion
+      result = anvil.server.call('login_user', 
+                                self.credentials_fields.email_input.text,
+                                self.credentials_fields.password_input.text)
+      
+      if result == "Invalid Data":
+        Notification("Email ou mot de passe incorrect", style="danger").show()
+      else:
+        Notification("Connexion réussie", style="success").show()
+        self.update_button_visibility()
+        get_open_form().load_page('dashboard')
+    except Exception as e:
+      Notification(f"Erreur lors de la connexion : {str(e)}", style="danger").show()
+
+  def dashboard_button_click(self, **event_args):
+    """Redirige vers le dashboard."""
     get_open_form().load_page('dashboard')
 
-
-
   def form_hide(self, **event_args):
-    #state.unregister(self.on_state_change)  
     pass
+
   def on_state_change(self):
-    #print(f"Utilisateur actuel : {state.get('user')}")
     pass
 
   def sign_up_link_click(self, **event_args):
-    """This method is called when the link is clicked"""
     get_open_form().load_page("signup")
-    pass
