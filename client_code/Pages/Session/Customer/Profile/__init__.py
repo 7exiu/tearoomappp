@@ -14,13 +14,27 @@ class Profile(ProfileTemplate):
             print("📡 Aucun utilisateur fourni, tentative de récupération depuis le serveur...")
             try:
                 user_info = anvil.server.call('get_user_info')
-                if user_info and user_info.get('user_email'):
-                    self.user = anvil.server.call('get_user_by_email', user_info['user_email'])
-                    print(f"✅ Utilisateur récupéré : {self.user}")
-                else:
-                    print("❌ Pas d'email utilisateur trouvé")
+                print(f"📋 Informations utilisateur reçues : {user_info}")
+                
+                if not user_info:
+                    print("❌ Aucune information utilisateur reçue")
                     open_form('LogInForm')
                     return
+                    
+                if not user_info.get('user_email'):
+                    print("❌ Pas d'email utilisateur trouvé dans les informations")
+                    open_form('LogInForm')
+                    return
+                    
+                print(f"📧 Email utilisateur trouvé : {user_info['user_email']}")
+                self.user = anvil.server.call('get_user_by_email', user_info['user_email'])
+                print(f"✅ Utilisateur récupéré : {self.user}")
+                
+                if not self.user:
+                    print("❌ Utilisateur non trouvé dans la base de données")
+                    open_form('LogInForm')
+                    return
+                    
             except Exception as e:
                 print(f"❌ Erreur lors de la récupération de l'utilisateur : {e}")
                 open_form('LogInForm')
@@ -37,27 +51,31 @@ class Profile(ProfileTemplate):
             print("🔄 Affichage des informations utilisateur...")
             print(f"📋 Données utilisateur disponibles : {self.user}")
             
+            if not self.user:
+                print("❌ Aucun utilisateur disponible pour l'affichage")
+                return
+                
             # Affichage de la photo de profil avec gestion d'erreur
             try:
-                if hasattr(self.user, 'photo') and self.user['photo']:
+                if self.user['photo']:
                     print("🖼️ Utilisation de la photo de profil fournie")
                     self.profile_photo.source = self.user['photo']
                 else:
                     print("🖼️ Génération d'un avatar par défaut")
-                    firstname = self.user['firstname'] if hasattr(self.user, 'firstname') else '_'
-                    lastname = self.user['lastname'] if hasattr(self.user, 'lastname') else '_'
+                    firstname = self.user['firstname'] if 'firstname' in self.user else '_'
+                    lastname = self.user['lastname'] if 'lastname' in self.user else '_'
                     self.profile_photo.source = f"https://ui-avatars.com/api/?name={firstname}+{lastname}"
             except Exception as photo_error:
                 print(f"⚠️ Erreur avec la photo : {photo_error}")
                 self.profile_photo.source = "/_/theme/default_avatar.png"
             
             # Affichage du nom et email avec validation
-            firstname = self.user['firstname'] if hasattr(self.user, 'firstname') else ''
-            lastname = self.user['lastname'] if hasattr(self.user, 'lastname') else ''
+            firstname = self.user['firstname'] if 'firstname' in self.user else ''
+            lastname = self.user['lastname'] if 'lastname' in self.user else ''
             print(f"👤 Nom complet : {firstname} {lastname}")
             self.user_name.text = f"{firstname} {lastname}"
             
-            email = self.user['email'] if hasattr(self.user, 'email') else ''
+            email = self.user['email'] if 'email' in self.user else ''
             print(f"📧 Email : {email}")
             self.user_email.text = email
             
