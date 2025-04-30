@@ -4,7 +4,6 @@ from anvil.tables import app_tables
 import anvil.server
 from datetime import datetime
 
-@anvil.server.callable
 def add_product(name, description, price, image, category):
     """
     Ajoute un nouveau produit dans la table appropriée (teas ou goodies).
