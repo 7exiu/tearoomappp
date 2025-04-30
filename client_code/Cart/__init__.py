@@ -5,27 +5,29 @@ import anvil.users
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
+from .CartItemPanel import CartItemPanel
 
 class Cart(CartTemplate):
     def __init__(self, **properties):
         self.init_components(**properties)
+        self.repeating_panel_1.item_template = CartItemPanel
         self.load_cart()
         
     def load_cart(self):
         """Charge le panier de l'utilisateur"""
         user = anvil.users.get_user()
         if not user:
-            self.cart_items_panel.clear()
+            self.repeating_panel_1.items = []
             self.total_label.text = "Total : 0.00 €"
             return
             
         cart_items = anvil.server.call('panier')
         if not cart_items:
-            self.cart_items_panel.clear()
+            self.repeating_panel_1.items = []
             self.total_label.text = "Total : 0.00 €"
             return
             
-        self.cart_items_panel.items = cart_items
+        self.repeating_panel_1.items = cart_items
         total = sum(item['price'] for item in cart_items)
         self.update_total(total)
         

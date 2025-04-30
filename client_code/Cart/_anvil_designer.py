@@ -18,10 +18,9 @@ class CartTemplate(Template):
         self.cart_panel.add_component(self.title_label)
         
         # Panel pour les articles
-        self.cart_items_panel = RepeatingPanel()
-        self.cart_items_panel.role = "cart-items"
-        self.cart_items_panel.item_template = CartItemTemplate()
-        self.cart_panel.add_component(self.cart_items_panel)
+        self.repeating_panel_1 = RepeatingPanel()
+        self.repeating_panel_1.role = "cart-items"
+        self.cart_panel.add_component(self.repeating_panel_1)
         
         # Panel pour le total
         self.total_panel = Panel()
@@ -50,6 +49,37 @@ class CartTemplate(Template):
         self.cart_panel.add_component(self.total_panel)
         
         self.add_component(self.cart_panel)
+        
+    def clear_cart_click(self, **event_args):
+        """Gère le clic sur le bouton vider le panier"""
+        pass
+        
+    def checkout_click(self, **event_args):
+        """Gère le clic sur le bouton passer la commande"""
+        pass
+
+    def form_show(self, **event_args):
+        self.repeating_panel_1.items = []
+        self.total_label.text = "Total : 0.00 €"
+        
+    def cart_item_show(self, **event_args):
+        """Affiche un article du panier"""
+        self.item_name_label.text = self.item['name']
+        self.item_price_label.text = f"{self.item['price']:.2f} €"
+        self.quantity_input.text = str(self.item['quantity'])
+        
+    def quantity_input_change(self, **event_args):
+        """Gère le changement de quantité"""
+        try:
+            quantity = int(self.quantity_input.text)
+            if quantity > 0:
+                self.parent.update_quantity(self.item, quantity)
+        except ValueError:
+            pass
+            
+    def remove_button_click(self, **event_args):
+        """Supprime l'article du panier"""
+        self.parent.remove_item_click(self.item)
 
 class CartItemTemplate(Template):
     def __init__(self, **properties):
@@ -82,35 +112,4 @@ class CartItemTemplate(Template):
         """Affiche les détails de l'article"""
         self.item_image.source = self.item['image']
         self.item_name_label.text = self.item['name']
-        self.item_price_label.text = f"{self.item['price']:.2f} €"
-
-    def clear_cart_click(self, **event_args):
-        """Gère le clic sur le bouton vider le panier"""
-        pass
-        
-    def checkout_click(self, **event_args):
-        """Gère le clic sur le bouton passer la commande"""
-        pass
-
-    def form_show(self, **event_args):
-        self.cart_items_panel.items = []
-        self.total_label.text = "Total : 0.00 €"
-        
-    def cart_item_show(self, **event_args):
-        """Affiche un article du panier"""
-        self.item_name_label.text = self.item['name']
-        self.item_price_label.text = f"{self.item['price']:.2f} €"
-        self.quantity_input.text = str(self.item['quantity'])
-        
-    def quantity_input_change(self, **event_args):
-        """Gère le changement de quantité"""
-        try:
-            quantity = int(self.quantity_input.text)
-            if quantity > 0:
-                self.parent.update_quantity(self.item, quantity)
-        except ValueError:
-            pass
-            
-    def remove_button_click(self, **event_args):
-        """Supprime l'article du panier"""
-        self.parent.remove_item_click(self.item) 
+        self.item_price_label.text = f"{self.item['price']:.2f} €" 
