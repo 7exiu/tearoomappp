@@ -50,6 +50,21 @@ components:
       text: LOGIN
       underline: false
     type: Link
+  - event_bindings: {click: logout_link_click}
+    layout_properties: {}
+    name: logout_link
+    properties:
+      bold: true
+      font: cambria
+      font_size: 16
+      icon: fa:sign-out
+      spacing:
+        margin: [null, '0', null, '20']
+        padding: [null, '5', null, '5']
+      text: LOGOUT
+      underline: false
+      visible: false
+    type: Link
   layout_properties: {grid_position: 'HCAUKA,RUJORO'}
   name: nav_flow_panel
   properties: {align: right}

@@ -23,9 +23,20 @@ from ..Pages.NoSession.Products.Tables import Tables
 class MainForm(MainFormTemplate):
   def __init__(self, **properties):
     self.init_components(**properties)
+    self.update_navbar_buttons()
     self.load_page("landing")
 
+  def update_navbar_buttons(self):
+    user_info = anvil.server.call('get_user_info')
+    if user_info:
+      self.login_link.visible = False
+      self.logout_link.visible = True
+    else:
+      self.login_link.visible = True
+      self.logout_link.visible = False
+
   def load_page(self, page_name):
+    self.update_navbar_buttons()
     self.content_panel.clear()
     if page_name == "landing":
       self.content_panel.add_component(Landing()) 
@@ -89,7 +100,14 @@ class MainForm(MainFormTemplate):
     get_open_form().load_page("teas")
 
   def login_link_click(self, **event_args):
-     get_open_form().load_page("login")
+    get_open_form().load_page("login")
+    self.update_navbar_buttons()
+
+  def logout_link_click(self, **event_args):
+    anvil.server.call('logout_user')
+    Notification("Déconnexion réussie", style="success").show()
+    self.update_navbar_buttons()
+    get_open_form().load_page("landing")
 
   def button_1_click(self, **event_args):
     """This method is called when the button is clicked"""
