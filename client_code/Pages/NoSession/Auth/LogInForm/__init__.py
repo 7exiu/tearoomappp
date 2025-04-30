@@ -11,17 +11,7 @@ class LogInForm(LogInFormTemplate):
     self.init_components(**properties)
     self.update_button_visibility()
 
-  def update_button_visibility(self):
-    """Met à jour la visibilité des boutons en fonction de l'état de connexion."""
-    user_info = anvil.server.call('get_user_info')
-    if user_info:
-      # Utilisateur connecté
-      self.form_buttons.login_button.visible = False
-      self.form_buttons.dashboard_button.visible = True
-    else:
-      # Utilisateur non connecté
-      self.form_buttons.login_button.visible = True
-      self.form_buttons.dashboard_button.visible = False
+  
 
   def on_submit_click(self, **event_args):
     """Gère la soumission du formulaire de connexion."""
