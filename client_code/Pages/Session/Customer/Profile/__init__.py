@@ -39,23 +39,25 @@ class Profile(ProfileTemplate):
             
             # Affichage de la photo de profil avec gestion d'erreur
             try:
-                if self.user.get('photo'):
+                if hasattr(self.user, 'photo') and self.user['photo']:
                     print("🖼️ Utilisation de la photo de profil fournie")
                     self.profile_photo.source = self.user['photo']
                 else:
                     print("🖼️ Génération d'un avatar par défaut")
-                    self.profile_photo.source = f"https://ui-avatars.com/api/?name={self.user.get('firstname', '_')}+{self.user.get('lastname', '_')}"
+                    firstname = self.user['firstname'] if hasattr(self.user, 'firstname') else '_'
+                    lastname = self.user['lastname'] if hasattr(self.user, 'lastname') else '_'
+                    self.profile_photo.source = f"https://ui-avatars.com/api/?name={firstname}+{lastname}"
             except Exception as photo_error:
                 print(f"⚠️ Erreur avec la photo : {photo_error}")
                 self.profile_photo.source = "/_/theme/default_avatar.png"
             
             # Affichage du nom et email avec validation
-            firstname = self.user.get('firstname', '')
-            lastname = self.user.get('lastname', '')
+            firstname = self.user['firstname'] if hasattr(self.user, 'firstname') else ''
+            lastname = self.user['lastname'] if hasattr(self.user, 'lastname') else ''
             print(f"👤 Nom complet : {firstname} {lastname}")
             self.user_name.text = f"{firstname} {lastname}"
             
-            email = self.user.get('email', '')
+            email = self.user['email'] if hasattr(self.user, 'email') else ''
             print(f"📧 Email : {email}")
             self.user_email.text = email
             
