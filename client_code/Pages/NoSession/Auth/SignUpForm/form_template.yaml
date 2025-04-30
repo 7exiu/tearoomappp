@@ -14,22 +14,13 @@ components:
     type: Label
   - layout_properties: {grid_position: 'FDVPXJ,IGWLEP'}
     name: confirmed_password_field
-    properties: 
-      background: 'theme:Surface Variant'
-      foreground: 'theme:On Surface'
-      placeholder: Confirmez le mot de passe
-      type: password
+    properties: {background: 'theme:Surface Variant', foreground: 'theme:On Surface', placeholder: Confirmez le mot de passe, type: password}
     type: TextBox
   - data_bindings: []
     event_bindings: {}
     layout_properties: {grid_position: 'SDIBKI,CSTPJD'}
     name: photo_loader
-    properties: 
-      align: center
-      enabled: true
-      text: Choisir une photo de profil
-      icon: fa:camera
-      icon_align: left
+    properties: {align: center, enabled: true, icon: 'fa:camera', icon_align: left, text: Choisir une photo de profil}
     type: FileLoader
   - layout_properties: {grid_position: 'FLOQNV,IZJPSS'}
     name: sign_up_form_buttons

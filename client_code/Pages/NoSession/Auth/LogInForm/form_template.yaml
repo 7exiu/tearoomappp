@@ -8,23 +8,27 @@ components:
     name: form_buttons
     properties: {}
     type: form:Components.FormButtons
-  - layout_properties: {grid_position: 'KXLMNO,PQRSTU'}
+  - components:
+    - name: signup_text
+      properties:
+        font_size: 16
+        spacing:
+          padding: [0, 8, 0, 0]
+        text: Pas encore de compte ?
+      type: Label
+    - event_bindings: {click: sign_up_link_click}
+      name: signup_link
+      properties: {bold: true, font_size: 16, foreground: 'theme:Primary', text: Créer un compte}
+      type: Link
+    layout_properties: {grid_position: 'KXLMNO,PQRSTU'}
     name: signup_panel
     properties: {spacing_above: large}
     type: FlowPanel
-    components:
-    - name: signup_text
-      properties: {text: "Pas encore de compte ?", font_size: 16, spacing: {padding: [0, 8, 0, 0]}}
-      type: Label
-    - name: signup_link
-      properties: {text: "Créer un compte", bold: true, font_size: 16, foreground: 'theme:Primary'}
-      type: Link
-      event_bindings: {click: sign_up_link_click}
   layout_properties: {grid_position: 'AKFPOE,PEMZGF'}
   name: log_in_form_column_panel
   properties: {}
   type: ColumnPanel
-container: 
+container:
   properties: {role: custom-wide}
   type: ColumnPanel
 is_package: true

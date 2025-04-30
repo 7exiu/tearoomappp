@@ -10,63 +10,36 @@ components:
     type: FileLoader
   - layout_properties: {grid_position: 'ESLRYZ,FDQSBY OLTUKS,AECSBB'}
     name: add_pb_name
-    properties: 
-      placeholder: "Nom du produit"
-      background: '#FFFFFF'
-      border_radius: 8
-      font_family: Quicksand
-      font_size: 16
+    properties: {background: '#FFFFFF', border_radius: 8, font_family: Quicksand, font_size: 16, placeholder: Nom du produit}
     type: TextBox
   - layout_properties: {grid_position: 'ESLRYZ,FDQSBY KTCIQT,WQUIIH'}
     name: add_price
-    properties: 
-      placeholder: "Prix"
-      background: '#FFFFFF'
-      border_radius: 8
-      font_family: Quicksand
-      font_size: 16
+    properties: {background: '#FFFFFF', border_radius: 8, font_family: Quicksand, font_size: 16, placeholder: Prix}
     type: TextBox
   - layout_properties: {grid_position: 'ESLRYZ,FDQSBY UUSKFH,NBBFLB'}
     name: add_description
-    properties: 
-      placeholder: "Description"
-      background: '#FFFFFF'
-      border_radius: 8
-      font_family: Quicksand
-      font_size: 16
+    properties: {background: '#FFFFFF', border_radius: 8, font_family: Quicksand, font_size: 16, placeholder: Description}
     type: TextBox
   - layout_properties: {grid_position: 'ESLRYZ,FDQSBY UUSKFH,NBBFLB'}
     name: category_dropdown
-    properties: 
-      items: ["Thé", "Goodie"]
-      placeholder: "Sélectionnez une catégorie"
+    properties:
       background: '#FFFFFF'
       border_radius: 8
       font_family: Quicksand
       font_size: 16
+      items: [Thé, Goodie]
+      placeholder: Sélectionnez une catégorie
     type: DropDown
   - event_bindings: {click: add_pd_click}
     layout_properties: {grid_position: 'ESLRYZ,FDQSBY OPQJNY,PXCFDO'}
     name: add_pd
-    properties: 
-      text: 'Ajouter un nouveau produit'
-      background: '#8b7355'
-      foreground: '#FFFFFF'
-      border_radius: 8
-      font_family: Quicksand
-      font_size: 16
-      bold: true
-      hover_background: '#7a6448'
+    properties: {background: '#8b7355', bold: true, border_radius: 8, font_family: Quicksand, font_size: 16, foreground: '#FFFFFF', hover_background: '#7a6448', text: Ajouter un nouveau produit}
     type: Button
   layout_properties: {grid_position: 'NPPRNB,FECQJB'}
   name: column_panel_1
-  properties: 
-    background: '#f5f0e6'
-    spacing: medium
-    padding: 20
+  properties: {background: '#f5f0e6', padding: 20, spacing: medium}
   type: ColumnPanel
-container: 
+container:
+  properties: {background: '#f5f0e6'}
   type: ColumnPanel
-  properties:
-    background: '#f5f0e6'
 is_package: true
