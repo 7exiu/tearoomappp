@@ -44,6 +44,7 @@ def addcard(product_id):
     article = app_tables.teas.get_by_id(product_id)
     user_data = anvil.server.call('get_user_info')
     user_id = user_data['user_id']
+    print("tqdfzef")
 
     print(user_id)
     if article is not None:
