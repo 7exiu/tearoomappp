@@ -6,10 +6,12 @@ from anvil.tables import app_tables
 class Profile(ProfileTemplate):
     def __init__(self, user, **properties):
         self.init_components(**properties)
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 72b5ac8 (ton message de commit ici44445434)
         self.user = user  # Reçoit l'objet Row depuis Dashboard
-
         try:
             self.setup_ui()
             print("✅ UI Profile chargée avec succès.")
@@ -24,7 +26,10 @@ class Profile(ProfileTemplate):
     def setup_ui(self):
         """Affiche les infos utilisateur dans les labels"""
         try:
+<<<<<<< HEAD
 
+=======
+>>>>>>> 72b5ac8 (ton message de commit ici44445434)
             print(">>> Chargement des infos utilisateur dans Profile...")
             
             # Affichage prénom et nom
@@ -48,7 +53,10 @@ class Profile(ProfileTemplate):
             self.profile_email.role = 'subtitle'
             self.profile_password.role = 'subtitle'
             self.profile_photo.role = 'avatar'
+<<<<<<< HEAD
 
+=======
+>>>>>>> 72b5ac8 (ton message de commit ici44445434)
 
             print("✅ Données utilisateur affichées correctement dans Profile.")
         except Exception as e:

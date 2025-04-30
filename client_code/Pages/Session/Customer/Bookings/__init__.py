@@ -10,7 +10,7 @@ class Bookings(BookingsTemplate):
     def __init__(self, **properties):
         # Initialisation des propriétés et des composants
         self.init_components(**properties)
-<<<<<<< HEAD
+
         self.load_tables_page()
         self.display_goodies()
         self.display_teas()
@@ -18,59 +18,16 @@ class Bookings(BookingsTemplate):
     def load_tables_page(self):
       try:
             # Appel serveur pour récupérer les goodies
-=======
+
         self.setup_ui()
         self.load_tables()
         self.load_goodies()
         self.load_teas()
 
-    def setup_ui(self):
-        """Configure l'interface utilisateur"""
-        self.title_label.role = 'title'
-        self.tables_panel.role = 'grid'
-        self.goodie_panel.role = 'grid'
-        self.teas_panel.role = 'grid'
-        self.cart_link.role = 'link'
-        self.orders_link.role = 'link'
-        self.profile_link.role = 'link'
-        self.teas_list_button.role = 'primary'
-        self.goodies_list_button.role = 'primary'
-
     def load_tables(self):
         try:
->>>>>>> 98edb84 (ton message de commit ici444454)
             tables = anvil.server.call('get_tables')
-            print(f"Tables chargés : {tables}")
-            
-            # Réinitialiser les composants existants avant d'ajouter les nouveaux
             self.tables_panel.clear()
-<<<<<<< HEAD
-            
-            # Ajouter chaque image de goodie au flow panel des goodies
-            for tables in tables:
-                # Créez une carte GoodieCard pour chaque goodie et ajoutez-la à column_panel_1
-                tablecard = TableCard(item=tables)
-                self.tables_panel.add_component(tablecard)
-      except Exception as e:
-            alert(f"Erreur lors du chargement des images des goodies : {e}")
-
-    def display_goodies(self):
-      try:
-        goodies = anvil.server.call('get_goodies')
-        for goodie in goodies:
-          self.goodie_panel.add_component(Image(source=goodie['image']))
-      except Exception as e:
-        alert(f"Erreur lors du chargement des images : {e}")
-
-    
-    def display_teas(self):
-     try:
-      teas = anvil.server.call('get_teas')
-      for tea in teas:
-        self.teas_panel.add_component(Image(source=tea['image']))
-     except Exception as e:
-      alert(f"Erreur lors du chargement des images : {e}")
-=======
             for table in tables:
                 self.tables_panel.add_component(TableCard(item=table))
         except Exception as e:
@@ -93,7 +50,6 @@ class Bookings(BookingsTemplate):
                 self.teas_panel.add_component(TeaCard(item=tea))
         except Exception as e:
             Notification(f"Erreur lors du chargement des thés : {e}", style="warning").show()
->>>>>>> 98edb84 (ton message de commit ici444454)
 
     def form_show(self, **event_args):
         """Cette méthode est appelée quand le formulaire est affiché"""

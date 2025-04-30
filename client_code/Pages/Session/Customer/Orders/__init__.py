@@ -1,7 +1,7 @@
 from ._anvil_designer import OrdersTemplate
 from anvil import *
 import anvil.server
-<<<<<<< HEAD
+
 
 
 class Orders(OrdersTemplate):
@@ -13,7 +13,7 @@ class Orders(OrdersTemplate):
 # Dans ta Formulaire où se trouve le bouton "Télécharger reçu"
 
 # ... (ton code existant) ...
-=======
+
 
 class Orders(OrdersTemplate):
     def __init__(self, **properties):
