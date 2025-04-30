@@ -64,6 +64,22 @@ components:
       padding: [null, 24, null, null]
     text: SIGN IN
   type: Button
+- data_bindings: []
+  event_bindings: {click: dashboard_button_click}
+  layout_properties: {grid_position: 'JYUBWM,YVAURG VGCGXV,NEWBTN'}
+  name: button_dashboard
+  properties:
+    background: theme:My Primary Color
+    bold: true
+    font: ''
+    foreground: ''
+    icon: fa:dashboard
+    role: elevated-button
+    spacing:
+      padding: [null, 24, null, null]
+    text: DASHBOARD
+    visible: false
+  type: Button
 - layout_properties: {grid_position: 'HADKVR,MZXILU'}
   name: teas_label
   properties: {align: center, bold: false, font: camrbia, font_size: 18, italic: false, text: 'Dedecated to making you taste the best teas in Paris, we do our uttermost to make our signature teas unique'}

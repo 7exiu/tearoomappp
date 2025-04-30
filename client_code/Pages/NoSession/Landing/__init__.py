@@ -20,7 +20,19 @@ class Landing(LandingTemplate):
     self.on_state_change()
     self.display_teas()
     self.display_goodies()
+    self.update_auth_buttons()
  
+  def update_auth_buttons(self):
+    user_info = anvil.server.call('get_user_info')
+    if user_info:
+      self.button_sign_in.visible = False
+      self.button_sign_up.visible = False
+      self.button_dashboard.visible = True
+    else:
+      self.button_sign_in.visible = True
+      self.button_sign_up.visible = True
+      self.button_dashboard.visible = False
+
   def display_goodies(self):
     try:
       goodies = anvil.server.call('get_goodies')
@@ -40,6 +52,9 @@ class Landing(LandingTemplate):
    
 
   
+  def form_show(self, **event_args):
+    self.update_auth_buttons()
+
   def form_hide(self, **event_args):
       state.unregister(self.on_state_change)
 
@@ -49,6 +64,9 @@ class Landing(LandingTemplate):
  
   def button_sign_up_click(self, **event_args):
     get_open_form().load_page("signup")
+
+  def dashboard_button_click(self, **event_args):
+    get_open_form().load_page("dashboard")
 
   def goodies_list_button_click(self, **event_args):
     get_open_form().load_page("goodies")
