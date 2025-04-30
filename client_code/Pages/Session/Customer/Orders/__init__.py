@@ -1,10 +1,7 @@
 from ._anvil_designer import OrdersTemplate
 from anvil import *
-import plotly.graph_objects as go
-import anvil.tables as tables
-import anvil.tables.query as q
-from anvil.tables import app_tables
 import anvil.server
+<<<<<<< HEAD
 
 
 class Orders(OrdersTemplate):
@@ -16,6 +13,37 @@ class Orders(OrdersTemplate):
 # Dans ta Formulaire où se trouve le bouton "Télécharger reçu"
 
 # ... (ton code existant) ...
+=======
+
+class Orders(OrdersTemplate):
+    def __init__(self, **properties):
+        self.init_components(**properties)
+        self.load_orders()
+
+    def load_orders(self):
+        try:
+            user_info = anvil.server.call('get_user_info')
+            orders = anvil.server.call('get_user_orders', user_info['user_id'])
+            self.repeating_panel_1.items = orders
+        except Exception as e:
+            Notification(f"Erreur lors du chargement des commandes : {e}", style="warning").show()
+
+    def view_details_click(self, **event_args):
+        try:
+            order_id = event_args['sender'].item['id']
+            user_info = anvil.server.call('get_user_info')
+            order = anvil.server.call('get_order_details', order_id, user_info['user_id'])
+            if order:
+                alert(str(order), large=True)
+            else:
+                Notification("Impossible de charger les détails de la commande", style="danger").show()
+        except Exception as e:
+            Notification(f"Erreur lors du chargement des détails : {e}", style="danger").show()
+
+    def menu_button_click(self, **event_args):
+        """Gère le clic sur le bouton Retour au Menu."""
+        get_open_form().load_page('menu')
+>>>>>>> 98edb84 (ton message de commit ici444454)
 
     def telecharger_recu_button_click(self, **event_args):
         """Gère le clic du bouton pour télécharger le reçu."""

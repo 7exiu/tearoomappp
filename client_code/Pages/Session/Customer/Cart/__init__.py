@@ -30,6 +30,45 @@ class Cart(CartTemplate):
       alert("Votre commande a était prise en compte")
       anvil.server.call('delete_card')
 
+<<<<<<< HEAD
+=======
+    def load_cart(self):
+        try:
+            # Récupération du panier via le serveur
+            user_info = anvil.server.call('get_user_info')
+            cart = anvil.server.call('get_cart', user_info['user_id'])
+            if cart:
+                self.cart_repeating_panel.items = cart['content']
+                self.update_total()
+            else:
+                self.cart_repeating_panel.items = []
+                self.total_label.text = "Total: 0 €"
+        except Exception as e:
+            Notification(f"Erreur lors du chargement du panier : {e}", style="warning").show()
+
+    def update_total(self):
+        total = 0
+        for item in self.cart_repeating_panel.items:
+            total += item['price'] * item['quantity']
+        self.total_label.text = f"Total: {total} €"
+
+    def dashboard_button_click(self, **event_args):
+        get_open_form().load_page('dashboard')
+
+    def outlined_button_1_click(self, **event_args):
+        try:
+            # Validation de la commande via le serveur
+            user_info = anvil.server.call('get_user_info')
+            # On suppose que la commande serveur attend une liste d'items
+            order = anvil.server.call('create_order', user_info['user_id'], self.cart_repeating_panel.items)
+            if order:
+                Notification("Commande validée avec succès !", style="success").show()
+                self.load_cart()
+            else:
+                Notification("Erreur lors de la validation de la commande", style="danger").show()
+        except Exception as e:
+            Notification(f"Erreur lors de la validation de la commande : {e}", style="danger").show()
+>>>>>>> 98edb84 (ton message de commit ici444454)
 
     def calculer_total(self):
       total = sum(item['price'] for item in state.cart_items)
