@@ -4,7 +4,7 @@ from anvil.tables import app_tables
 import anvil.server
 
 # Import de la fonction pour la rendre disponible
-from .crud import add_product
+
 
 # This is a server module. It runs on the Anvil server,
 # rather than in the user's browser.
