@@ -1,8 +1,6 @@
 from ._anvil_designer import BookingsTemplate
 from anvil import *
 import anvil.server
-
-
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
@@ -23,45 +21,37 @@ class Bookings(BookingsTemplate):
     def __init__(self, **properties):
         # Initialisation des propriétés et des composants
         self.init_components(**properties)
-        self.load_tables_page()
-        self.display_goodies()
-        self.display_teas()
-
-    def load_tables_page(self):
-      try:
-            # Appel serveur pour récupérer les goodies
-
-
-        self.setup_ui()
         self.load_tables()
         self.load_goodies()
         self.load_teas()
-      except:
-        print('aieaie')
-    
-  
+
+    def load_tables(self):
+        try:
+            tables = anvil.server.call('get_tables')
+            self.tables_panel.clear()
+            for table in tables:
+                table_card = TableCard(item=table)
+                self.tables_panel.add_component(table_card)
+        except Exception as e:
+            Notification(f"Erreur lors du chargement des tables : {e}", style="warning").show()
+
     def load_goodies(self):
-      try:
+        try:
             goodies = anvil.server.call('get_goodies')
             self.goodie_panel.clear()
             for goodie in goodies:
                 self.goodie_panel.add_component(GoodieCard(item=goodie))
-      except Exception as e:
+        except Exception as e:
             Notification(f"Erreur lors du chargement des goodies : {e}", style="warning").show()
 
-            tables = anvil.server.call('get_tables')
-            print(f"Tables chargés : {tables}")
-            
-            # Réinitialiser les composants existants avant d'ajouter les nouveaux
-            self.tables_panel.clear()
-            
-            # Ajouter chaque image de goodie au flow panel des goodies
-            for tables in tables:
-                # Créez une carte GoodieCard pour chaque goodie et ajoutez-la à column_panel_1
-                tablecard = TableCard(item=tables)
-                self.tables_panel.add_component(tablecard)
-      except Exception as e:
-            alert(f"Erreur lors du chargement des images des goodies : {e}")
+    def load_teas(self):
+        try:
+            teas = anvil.server.call('get_teas')
+            self.teas_panel.clear()
+            for tea in teas:
+                self.teas_panel.add_component(TeaCard(item=tea))
+        except Exception as e:
+            Notification(f"Erreur lors du chargement des thés : {e}", style="warning").show()
 
     def display_goodies(self):
       try:
