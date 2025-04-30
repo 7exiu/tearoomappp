@@ -14,7 +14,7 @@ class SignUpForm(SignUpFormTemplate):
   def __init__(self, **properties):
     self.init_components(**properties)
     self.sign_up_form_buttons.submit_button.add_event_handler('click', self.on_submit_click)
-    self.file_loader_1.file_types = ['.jpg', '.png']
+    self.photo_loader.file_types = ['.jpg', '.png']
     self.credentials_fields.password_field.add_event_handler('change', self.on_password_change)
       
   def on_password_change(self, **event_args):

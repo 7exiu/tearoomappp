@@ -8,10 +8,6 @@ components:
     name: credentials_fields
     properties: {}
     type: form:Components.CredentialsFields
-  - layout_properties: {grid_position: 'GHBDEX,KGTOPC'}
-    name: label_1
-    properties: {text: 'Try to include: 1 uppercase letter, 1 lowercase letter, 1 number, 1 special character, and at least 10 characters in total.'}
-    type: Label
   - layout_properties: {grid_position: 'FDVPXJ,IGWLEP'}
     name: confirmed_password_field
     properties: {background: 'theme:My Primary Color', foreground: 'theme:On Surface', placeholder: Confirm the password}
