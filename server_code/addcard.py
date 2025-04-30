@@ -213,9 +213,28 @@ def delete_card():
         return False
 
 @anvil.server.callable
+def check_orders_table():
+    """Vérifie si la table orders existe et a la bonne structure"""
+    try:
+        # Vérifier si la table existe en essayant de la lire
+        test = app_tables.orders.search()
+        print("✅ Table orders trouvée")
+        return True
+    except Exception as e:
+        print("❌ Erreur avec la table orders:")
+        print(str(e))
+        return False
+
+@anvil.server.callable
 def validate_order():
     try:
         print("=== Validation de la commande ===")
+        
+        # Vérifier la table orders
+        if not check_orders_table():
+            print("❌ La table orders n'est pas correctement configurée")
+            return False
+            
         user_data = anvil.server.call('get_user_info')
         user_id = user_data['user_id']
         print(f"ID utilisateur : {user_id}")
@@ -229,30 +248,62 @@ def validate_order():
             return False
             
         try:
-            # Créer la commande dans la table orders
-            order = app_tables.orders.add_row(
-                user_id=user_id,
-                date=datetime.now(),
-                status="En cours",
-                content=[{
+            # Préparer les données pour la commande
+            order_content = []
+            total = 0
+            
+            for item in cart_items:
+                order_content.append({
                     'name': item['name'],
                     'price': item['price'],
                     'description': item['description'],
                     'image': item['image']
-                } for item in cart_items],
-                total_amount=sum(item['price'] for item in cart_items)
-            )
-            print("✅ Commande créée avec succès")
+                })
+                total += item['price']
+            
+            print("Contenu de la commande préparé :")
+            print(order_content)
+            print(f"Total calculé : {total}")
+            
+            # Créer la commande dans la table orders
+            try:
+                new_order = app_tables.orders.add_row(
+                    user_id=user_id,
+                    date=datetime.now(),
+                    status="En cours",
+                    content=order_content,
+                    total_amount=total
+                )
+                print("✅ Commande créée avec succès")
+                print(f"ID de la commande : {new_order.get_id()}")
+            except Exception as e:
+                print("❌ Erreur lors de l'ajout à la table orders:")
+                print(str(e))
+                print("Structure de la commande tentée:")
+                print({
+                    'user_id': user_id,
+                    'date': datetime.now(),
+                    'status': "En cours",
+                    'content': order_content,
+                    'total_amount': total
+                })
+                return False
             
             # Marquer les articles du panier comme commandés
-            for item in cart_items:
-                item['etat'] = True
-            print("✅ Articles du panier marqués comme commandés")
+            try:
+                for item in cart_items:
+                    print(f"Marquage de l'article {item['name']} comme commandé")
+                    item['etat'] = True
+                print("✅ Articles du panier marqués comme commandés")
+            except Exception as e:
+                print("❌ Erreur lors de la mise à jour des articles du panier:")
+                print(str(e))
+                return False
             
             return True
             
         except Exception as e:
-            print("❌ Erreur lors de la création de la commande:")
+            print("❌ Erreur lors de la préparation de la commande:")
             print(str(e))
             print(traceback.format_exc())
             return False
