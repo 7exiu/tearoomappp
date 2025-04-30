@@ -1,7 +1,7 @@
 from ._anvil_designer import BookingsTemplate
 from anvil import *
 import anvil.server
-<<<<<<< HEAD
+
 
 import anvil.tables as tables
 import anvil.tables.query as q
@@ -10,13 +10,13 @@ from anvil.tables import app_tables
 from ....NoSession.Products.Tables.TableCard import TableCard
 from ....NoSession.Products.Goodies.GoodieCard import GoodieCard
 from ....NoSession.Products.Teas.TeaCard import TeaCard
-=======
+
 from anvil.tables import app_tables
 from ....NoSession.Products.Tables import Tables
 from ....NoSession.Products.Goodies.GoodieCard import GoodieCard
 from ....NoSession.Products.Teas.TeaCard import TeaCard
 from ....NoSession.Products.Tables.TableCard import TableCard
->>>>>>> dec689e (ton message de commit ici4257)
+
 
 
 class Bookings(BookingsTemplate):
@@ -30,7 +30,7 @@ class Bookings(BookingsTemplate):
     def load_tables_page(self):
       try:
             # Appel serveur pour récupérer les goodies
-<<<<<<< HEAD
+
 
         self.setup_ui()
         self.load_tables()
@@ -48,7 +48,7 @@ class Bookings(BookingsTemplate):
                 self.goodie_panel.add_component(GoodieCard(item=goodie))
       except Exception as e:
             Notification(f"Erreur lors du chargement des goodies : {e}", style="warning").show()
-=======
+
             tables = anvil.server.call('get_tables')
             print(f"Tables chargés : {tables}")
             
@@ -70,7 +70,7 @@ class Bookings(BookingsTemplate):
           self.goodie_panel.add_component(Image(source=goodie['image']))
       except Exception as e:
         alert(f"Erreur lors du chargement des images : {e}")
->>>>>>> dec689e (ton message de commit ici4257)
+
 
     
     def display_teas(self):

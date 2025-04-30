@@ -20,10 +20,7 @@ class Profile(ProfileTemplate):
     def setup_ui(self):
         """Affiche les infos utilisateur dans les labels"""
         try:
-<<<<<<< HEAD
 
-=======
->>>>>>> dec689e (ton message de commit ici4257)
             print(">>> Chargement des infos utilisateur dans Profile...")
             
             # Affichage prénom et nom
@@ -36,12 +33,8 @@ class Profile(ProfileTemplate):
             password_length = password
             self.profile_password.text = "*" * password_length if password else "Pas de mot de passe défini"
 
-<<<<<<< HEAD
-            self.profile_name.text = f"{self.user['firstname']} {self.user['lastname']}"
-            self.profile_email.text = self.user['email']
-            self.profile_photo.source = self.user['photo']
-            password = len(self.user['password'])
-            self.profile_password.text = "*" * password if password else "Pas de mot de passe défini"
+
+            
             
             # Style des composants
             self.profile_name.role = 'title'
@@ -50,8 +43,8 @@ class Profile(ProfileTemplate):
             self.profile_photo.role = 'avatar'
 
 
-=======
->>>>>>> dec689e (ton message de commit ici4257)
+
+
             print("✅ Données utilisateur affichées correctement dans Profile.")
         except Exception as e:
             print(f"❌ Erreur dans setup_ui Profile : {e}")

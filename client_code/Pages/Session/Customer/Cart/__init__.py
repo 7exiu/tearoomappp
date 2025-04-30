@@ -26,16 +26,12 @@ class Cart(CartTemplate):
       self.cart_repeating_panel.item_template = SouCart
       self.cart_repeating_panel.items = souscart
 
-<<<<<<< HEAD
 
-=======
->>>>>>> dec689e (ton message de commit ici4257)
     def button_pop_click(self, **event_args):
       alert("Votre commande a était prise en compte")
       anvil.server.call('delete_card')
 
 
-<<<<<<< HEAD
 
     def load_cart(self):
         try:
@@ -72,8 +68,7 @@ class Cart(CartTemplate):
             Notification(f"Erreur lors de la validation de la commande : {e}", style="danger").show()
 
 
-=======
->>>>>>> dec689e (ton message de commit ici4257)
+
     def calculer_total(self):
       total = sum(item['price'] for item in state.cart_items)
       print("Total du panier :", total)
