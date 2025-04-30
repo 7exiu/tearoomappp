@@ -1,7 +1,7 @@
 components:
 - layout_properties: {grid_position: 'VNVEGT,LXKJVF'}
   name: cart_repeating_panel
-  properties: {item_template: Pages.NoSession.Products.Teas.TeaCard}
+  properties: {item_template: Pages.Session.Customer.Cart.SouCart}
   type: RepeatingPanel
 - layout_properties: {grid_position: 'URILQU,QQZHVP'}
   name: total_label
