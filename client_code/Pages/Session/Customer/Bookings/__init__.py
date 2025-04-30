@@ -29,8 +29,11 @@ class Bookings(BookingsTemplate):
         try:
             tables = anvil.server.call('get_tables')
             self.tables_panel.clear()
-            for table in tables:
-                self.tables_panel.add_component(Image(source=table['image']))
+            if not tables:
+                self.tables_panel.add_component(Label(text="Pas de réservation", align="center", font_size=16, foreground="#BA1A1A"))
+            else:
+                for table in tables:
+                    self.tables_panel.add_component(Image(source=table['image']))
         except Exception as e:
             Notification(f"Erreur lors du chargement des tables : {e}", style="warning").show()
 
