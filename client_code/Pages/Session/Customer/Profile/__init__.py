@@ -62,20 +62,20 @@ class Profile(ProfileTemplate):
                     self.profile_photo.source = self.user['photo']
                 else:
                     print("🖼️ Génération d'un avatar par défaut")
-                    firstname = self.user['firstname'] if 'firstname' in self.user else '_'
-                    lastname = self.user['lastname'] if 'lastname' in self.user else '_'
+                    firstname = self.user['firstname'] 
+                    lastname = self.user['lastname']
                     self.profile_photo.source = f"https://ui-avatars.com/api/?name={firstname}+{lastname}"
             except Exception as photo_error:
                 print(f"⚠️ Erreur avec la photo : {photo_error}")
                 self.profile_photo.source = "/_/theme/default_avatar.png"
             
             # Affichage du nom et email avec validation
-            firstname = self.user['firstname'] if 'firstname' in self.user else ''
-            lastname = self.user['lastname'] if 'lastname' in self.user else ''
+            firstname = self.user['firstname']
+            lastname = self.user['lastname'] 
             print(f"👤 Nom complet : {firstname} {lastname}")
             self.user_name.text = f"{firstname} {lastname}"
             
-            email = self.user['email'] if 'email' in self.user else ''
+            email = self.user['email'] 
             print(f"📧 Email : {email}")
             self.user_email.text = email
             
