@@ -39,7 +39,7 @@ class AddProduct(AddProductTemplate):
       category = 'tea' if category == 'Thé' else 'goodie'
 
       # Appel au serveur
-      result = anvil.server.call('add_product', name, description, price, image, category)
+      result = anvil.server.call('add_product_to_catalog', name, description, price, image, category)
       
       print(f"✅ Produit ajouté avec succès : {result}")
       Notification(result).show()
