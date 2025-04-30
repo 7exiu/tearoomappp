@@ -18,16 +18,16 @@ class AddProduct(AddProductTemplate):
       name = self.add_pb_name.text
       description = self.add_description.text
       price_text = self.add_price.text
-      
       image = self.file_loader_1.file
+      category = self.category_dropdown.selected_value
 
       # Vérification des champs
-      if not name or not description or not price_text:
+      if not name or not description or not price_text or not category:
         Notification("Tous les champs obligatoires doivent être remplis.", style="danger").show()
         print("❌ Champs manquants")
         return
 
-      # Conversion du prix et du stock
+      # Conversion du prix
       try:
         price = float(price_text)
       except ValueError:
@@ -35,8 +35,11 @@ class AddProduct(AddProductTemplate):
         print("❌ Erreur de type sur le prix")
         return
 
+      # Conversion de la catégorie
+      category = 'tea' if category == 'Thé' else 'goodie'
+
       # Appel au serveur
-      result = anvil.server.call('add_product', name, description, price, image)
+      result = anvil.server.call('add_product', name, description, price, image, category)
       
       print(f"✅ Produit ajouté avec succès : {result}")
       Notification(result, style="success").show()
@@ -45,19 +48,19 @@ class AddProduct(AddProductTemplate):
       self.add_pb_name.text = ""
       self.add_description.text = ""
       self.add_price.text = ""
-      self.file_loader_1.clear()  
-
+      self.file_loader_1.clear()
+      self.category_dropdown.selected_value = None
 
     except Exception as e:
       print(f"❌ Erreur inattendue : {e}")
       Notification(f"Erreur lors de l'ajout : {e}", style="danger").show()
     
-def add_pb_name_pressed_enter(self, **event_args):
+  def add_pb_name_pressed_enter(self, **event_args):
     pass
 
-def add_price_pressed_enter(self, **event_args):
+  def add_price_pressed_enter(self, **event_args):
     pass
 
-def add_description_pressed_enter(self, **event_args):
+  def add_description_pressed_enter(self, **event_args):
     pass
 

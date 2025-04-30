@@ -14,10 +14,10 @@ class ListClientsCard(ListClientsCardTemplate):
     # Affichage des informations du client
     self.label_name.text = f"{client['firstname']} {client['lastname']}"
     self.label_email.text = client['email']
-    self.label_role.text = "Admin" if client.get('is_admin') else "Client"
+    self.label_role.text = "Admin" if client['is_admin'] else "Client"
     
     # Affichage de la photo de profil si disponible
-    if client.get('photo'):
+    if client['photo']:
       self.profile_photo.source = client['photo']
     else:
       self.profile_photo.source = "https://ui-avatars.com/api/?name=" + client['firstname'] + "+" + client['lastname']

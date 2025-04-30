@@ -6,6 +6,7 @@ components:
     bold: true
     foreground: '#8b7355'
     align: center
+    font_family: Playfair Display
   type: Label
   layout_properties: {margin: 20}
 
@@ -20,4 +21,5 @@ container:
   properties:
     background: '#f5f0e6'
     spacing: medium
+    padding: 20
 is_package: true
