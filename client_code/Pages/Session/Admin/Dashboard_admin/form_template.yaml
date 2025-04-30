@@ -119,6 +119,6 @@ components:
     text: Tableau de Bord Administrateur
   type: TextBox
 container:
-  properties: {background: '#dbbeb4', html: '@theme:standard-page.html'}
+  properties: {background: 'theme:On Primary', html: '@theme:standard-page.html'}
   type: HtmlTemplate
 is_package: true
