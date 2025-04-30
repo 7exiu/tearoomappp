@@ -16,7 +16,7 @@ class ListClients(ListClientsTemplate):
   def load_clients(self):
     try:
       print("🔄 Appel serveur pour récupérer les utilisateurs...")
-      clients = anvil.server.call('get_clients')  # Appel de la fonction serveur
+      clients = anvil.server.call('get_all_users')  # Utilisation de la fonction existante
       print(f"✅ {len(clients)} clients reçus")
 
       self.repeating_panel_1.item_template = ListClientsCard

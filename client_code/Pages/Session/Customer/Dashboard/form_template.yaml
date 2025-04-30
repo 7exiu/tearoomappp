@@ -74,12 +74,12 @@ components:
       font_size: 16
       foreground: '#ffffff'
       hover_background: '#c19e6b'
-      icon: fa:calendar
+      icon: fa:coffee
       icon_align: left
       spacing:
         margin: ['10', '10', '10', '10']
         padding: ['15', '15', '15', '15']
-      text: Mes Réservations
+      text: Produits
     type: Link
   - event_bindings: {click: menu_button_click}
     name: menu_button
