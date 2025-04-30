@@ -30,8 +30,7 @@ class Cart(CartTemplate):
       alert("Votre commande a était prise en compte")
       anvil.server.call('delete_card')
 
-<<<<<<< HEAD
-=======
+
     def load_cart(self):
         try:
             # Récupération du panier via le serveur
@@ -68,7 +67,7 @@ class Cart(CartTemplate):
                 Notification("Erreur lors de la validation de la commande", style="danger").show()
         except Exception as e:
             Notification(f"Erreur lors de la validation de la commande : {e}", style="danger").show()
->>>>>>> 98edb84 (ton message de commit ici444454)
+
 
     def calculer_total(self):
       total = sum(item['price'] for item in state.cart_items)

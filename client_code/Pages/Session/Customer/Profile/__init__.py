@@ -6,7 +6,7 @@ from anvil.tables import app_tables
 class Profile(ProfileTemplate):
     def __init__(self, user, **properties):
         self.init_components(**properties)
-<<<<<<< HEAD
+
 
         self.user = user  # Reçoit l'objet Row depuis Dashboard
 
@@ -16,15 +16,15 @@ class Profile(ProfileTemplate):
         except Exception as e:
             print(f"❌ Erreur dans Profile __init__ : {e}")
             Notification(f"Erreur lors de l'initialisation du Profil : {e}", style="danger").show()
-=======
+
         self.user = user  # Reçoit l'objet Row depuis Dashboard
         self.setup_ui()
->>>>>>> 98edb84 (ton message de commit ici444454)
+
 
     def setup_ui(self):
         """Affiche les infos utilisateur dans les labels"""
         try:
-<<<<<<< HEAD
+
             print(">>> Chargement des infos utilisateur dans Profile...")
             
             # Affichage prénom et nom
@@ -36,7 +36,7 @@ class Profile(ProfileTemplate):
             password = len(self.user['password'])  # Utilisation de get pour éviter les erreurs
             password_length = password
             self.profile_password.text = "*" * password_length if password else "Pas de mot de passe défini"
-=======
+
             self.profile_name.text = f"{self.user['firstname']} {self.user['lastname']}"
             self.profile_email.text = self.user['email']
             self.profile_photo.source = self.user['photo']
@@ -48,7 +48,7 @@ class Profile(ProfileTemplate):
             self.profile_email.role = 'subtitle'
             self.profile_password.role = 'subtitle'
             self.profile_photo.role = 'avatar'
->>>>>>> 98edb84 (ton message de commit ici444454)
+
 
             print("✅ Données utilisateur affichées correctement dans Profile.")
         except Exception as e:

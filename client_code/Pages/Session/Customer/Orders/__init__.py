@@ -43,7 +43,7 @@ class Orders(OrdersTemplate):
     def menu_button_click(self, **event_args):
         """Gère le clic sur le bouton Retour au Menu."""
         get_open_form().load_page('menu')
->>>>>>> 98edb84 (ton message de commit ici444454)
+
 
     def telecharger_recu_button_click(self, **event_args):
         """Gère le clic du bouton pour télécharger le reçu."""
