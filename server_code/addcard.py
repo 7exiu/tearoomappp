@@ -336,4 +336,47 @@ def get_user_orders():
         print(traceback.format_exc())
         return []
 
+@anvil.server.callable
+def debug_orders_table():
+    """Fonction de débogage pour inspecter la structure de la table orders"""
+    try:
+        print("\n=== DÉBOGAGE TABLE ORDERS ===")
+        
+        # Vérifier si la table existe
+        try:
+            test = app_tables.orders.search()
+            print("✅ Table orders accessible")
+        except Exception as e:
+            print("❌ Erreur d'accès à la table orders:")
+            print(str(e))
+            return
+        
+        # Obtenir la structure des colonnes
+        print("\nStructure de la table:")
+        for col in app_tables.orders.list_columns():
+            print(f"- {col.name}: {col.type}")
+            
+        # Compter les entrées
+        count = len(list(app_tables.orders.search()))
+        print(f"\nNombre total d'entrées: {count}")
+        
+        # Afficher quelques entrées existantes
+        print("\nDernières entrées (max 3):")
+        entries = list(app_tables.orders.search(tables.order_by("date", ascending=False)))[:3]
+        
+        for i, entry in enumerate(entries, 1):
+            print(f"\nEntrée {i}:")
+            for key in entry:
+                print(f"- {key}: {entry[key]}")
+                
+        return "Debug terminé"
+        
+    except Exception as e:
+        print("\n❌ ERREUR lors du débogage:")
+        print(f"Type d'erreur: {type(e).__name__}")
+        print(f"Message d'erreur: {str(e)}")
+        print("\nTrace complète:")
+        print(traceback.format_exc())
+        return "Erreur de débogage"
+
   
