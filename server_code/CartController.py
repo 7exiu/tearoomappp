@@ -14,7 +14,10 @@ from datetime import datetime
 @anvil.server.callable
 def get_cart(user_id):
     """Récupère le panier d'un utilisateur"""
-    return app_tables.carts.get(user_id=user_id)
+    cart = app_tables.carts.get(user_id=user_id)
+    if not cart:
+        return None
+    return cart
 
 @anvil.server.callable
 def create_cart(user_id, items):
@@ -68,4 +71,38 @@ def add_to_cart(user_id, item):
     # Si l'article n'existe pas, l'ajouter
     current_items.append(item)
     return update_cart(user_id, current_items)
+
+@anvil.server.callable
+def remove_from_cart(user_id, item_id):
+    """Supprime un article du panier"""
+    cart = get_cart(user_id)
+    if not cart:
+        return None
+        
+    current_items = cart['content']
+    current_items = [item for item in current_items if item['id'] != item_id]
+    return update_cart(user_id, current_items)
+
+@anvil.server.callable
+def update_quantity(user_id, item_id, quantity):
+    """Met à jour la quantité d'un article dans le panier"""
+    cart = get_cart(user_id)
+    if not cart:
+        return None
+        
+    current_items = cart['content']
+    for item in current_items:
+        if item['id'] == item_id:
+            item['quantity'] = quantity
+            break
+            
+    return update_cart(user_id, current_items)
+
+@anvil.server.callable
+def clear_cart(user_id):
+    """Vide le panier"""
+    cart = get_cart(user_id)
+    if cart:
+        cart.update(content=[], total_amount=0, updated_at=datetime.now())
+    return cart
   
