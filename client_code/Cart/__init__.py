@@ -68,5 +68,13 @@ class Cart(CartTemplate):
             alert("Votre panier est vide")
             return
             
-        # Rediriger vers la page de paiement
-        open_form('Checkout') 
+        # Demander confirmation
+        if confirm("Voulez-vous valider votre commande ?"):
+            # Valider la commande
+            if anvil.server.call('validate_order'):
+                # Afficher le message de confirmation
+                alert("Votre commande a été validée avec succès !")
+                # Rediriger vers la page des commandes
+                open_form('Orders')
+            else:
+                alert("Une erreur est survenue lors de la validation de votre commande. Veuillez réessayer.") 

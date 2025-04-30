@@ -3,6 +3,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 import traceback
+from datetime import datetime
 
 
 # This is a server module. It runs on the Anvil server,
@@ -210,5 +211,78 @@ def delete_card():
         print(str(e))
         print(traceback.format_exc())
         return False
+
+@anvil.server.callable
+def validate_order():
+    try:
+        print("=== Validation de la commande ===")
+        user_data = anvil.server.call('get_user_info')
+        user_id = user_data['user_id']
+        print(f"ID utilisateur : {user_id}")
+        
+        # Récupérer tous les articles du panier
+        cart_items = list(app_tables.temp.search(id_user=user_id, etat=False))
+        print(f"Nombre d'articles dans le panier : {len(cart_items)}")
+        
+        if not cart_items:
+            print("❌ Panier vide")
+            return False
+            
+        try:
+            # Créer la commande dans la table orders
+            order = app_tables.orders.add_row(
+                user_id=user_id,
+                date=datetime.now(),
+                status="En cours",
+                content=[{
+                    'name': item['name'],
+                    'price': item['price'],
+                    'description': item['description'],
+                    'image': item['image']
+                } for item in cart_items],
+                total_amount=sum(item['price'] for item in cart_items)
+            )
+            print("✅ Commande créée avec succès")
+            
+            # Marquer les articles du panier comme commandés
+            for item in cart_items:
+                item['etat'] = True
+            print("✅ Articles du panier marqués comme commandés")
+            
+            return True
+            
+        except Exception as e:
+            print("❌ Erreur lors de la création de la commande:")
+            print(str(e))
+            print(traceback.format_exc())
+            return False
+            
+    except Exception as e:
+        print("❌ Erreur générale dans validate_order:")
+        print(str(e))
+        print(traceback.format_exc())
+        return False
+
+@anvil.server.callable
+def get_user_orders():
+    try:
+        print("=== Récupération des commandes utilisateur ===")
+        user_data = anvil.server.call('get_user_info')
+        user_id = user_data['user_id']
+        print(f"ID utilisateur : {user_id}")
+        
+        # Récupérer toutes les commandes de l'utilisateur, triées par date décroissante
+        orders = list(app_tables.orders.search(
+            tables.order_by("date", ascending=False),
+            user_id=user_id
+        ))
+        print(f"Nombre de commandes trouvées : {len(orders)}")
+        return orders
+        
+    except Exception as e:
+        print("❌ Erreur dans get_user_orders:")
+        print(str(e))
+        print(traceback.format_exc())
+        return []
 
   
