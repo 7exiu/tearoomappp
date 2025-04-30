@@ -23,7 +23,7 @@ class AddProduct(AddProductTemplate):
 
       # Vérification des champs
       if not name or not description or not price_text or not category:
-        Notification("Tous les champs obligatoires doivent être remplis.", style="danger").show()
+        alert("Tous les champs obligatoires doivent être remplis.")
         print("❌ Champs manquants")
         return
 
@@ -31,7 +31,7 @@ class AddProduct(AddProductTemplate):
       try:
         price = float(price_text)
       except ValueError:
-        Notification("Le prix doit être un nombre.", style="danger").show()
+        alert("Le prix doit être un nombre.")
         print("❌ Erreur de type sur le prix")
         return
 
@@ -42,7 +42,7 @@ class AddProduct(AddProductTemplate):
       result = anvil.server.call('add_product', name, description, price, image, category)
       
       print(f"✅ Produit ajouté avec succès : {result}")
-      Notification(result, style="success").show()
+      Notification(result).show()
 
       # Réinitialisation du formulaire
       self.add_pb_name.text = ""
@@ -53,7 +53,7 @@ class AddProduct(AddProductTemplate):
 
     except Exception as e:
       print(f"❌ Erreur inattendue : {e}")
-      Notification(f"Erreur lors de l'ajout : {e}", style="danger").show()
+      alert(f"Erreur lors de l'ajout : {str(e)}")
     
   def add_pb_name_pressed_enter(self, **event_args):
     pass
