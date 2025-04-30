@@ -1,158 +1,62 @@
 components:
 - components:
-  - name: profile_photo
-    properties:
-      height: 150
-      width: 150
-      border_radius: 75
-      border: 3
-      border_color: '#8b7355'
+  - layout_properties: {align: center, margin: 20}
+    name: profile_photo
+    properties: {border: 3, border_color: '#8b7355', border_radius: 75, height: 150, width: 150}
     type: Image
-    layout_properties: {align: center, margin: 20}
-  
-  - name: user_name
-    properties:
-      font_size: 24
-      bold: true
-      foreground: '#8b7355'
-      font_family: Playfair Display
-      align: center
+  - layout_properties: {margin: 10}
+    name: user_name
+    properties: {align: center, bold: true, font_family: Playfair Display, font_size: 24, foreground: '#8b7355'}
     type: Label
-    layout_properties: {margin: 10}
-  
-  - name: user_email
-    properties:
-      font_size: 16
-      foreground: '#666666'
-      font_family: Quicksand
-      align: center
+  - layout_properties: {margin: 10}
+    name: user_email
+    properties: {align: center, font_family: Quicksand, font_size: 16, foreground: '#666666'}
     type: Label
-    layout_properties: {margin: 10}
-  
   - components:
-    - name: edit_button
-      properties:
-        text: "Modifier le profil"
-        background: '#8b7355'
-        foreground: '#FFFFFF'
-        border_radius: 8
-        font_family: Quicksand
-        font_size: 16
-        bold: true
-        hover_background: '#7a6448'
+    - event_bindings: {click: edit_button_click}
+      name: edit_button
+      properties: {background: '#8b7355', bold: true, border_radius: 8, font_family: Quicksand, font_size: 16, foreground: '#FFFFFF', hover_background: '#7a6448', text: Modifier le profil}
       type: Button
-      event_bindings: {click: edit_button_click}
-    
-    - name: save_button
-      properties:
-        text: "Enregistrer"
-        background: '#8b7355'
-        foreground: '#FFFFFF'
-        border_radius: 8
-        font_family: Quicksand
-        font_size: 16
-        bold: true
-        hover_background: '#7a6448'
-        visible: false
+    - event_bindings: {click: save_button_click}
+      name: save_button
+      properties: {background: '#8b7355', bold: true, border_radius: 8, font_family: Quicksand, font_size: 16, foreground: '#FFFFFF', hover_background: '#7a6448', text: Enregistrer, visible: false}
       type: Button
-      event_bindings: {click: save_button_click}
-    
-    - name: cancel_button
-      properties:
-        text: "Annuler"
-        background: '#BA1A1A'
-        foreground: '#FFFFFF'
-        border_radius: 8
-        font_family: Quicksand
-        font_size: 16
-        bold: true
-        hover_background: '#A01515'
-        visible: false
+    - event_bindings: {click: cancel_button_click}
+      name: cancel_button
+      properties: {background: '#BA1A1A', bold: true, border_radius: 8, font_family: Quicksand, font_size: 16, foreground: '#FFFFFF', hover_background: '#A01515', text: Annuler, visible: false}
       type: Button
-      event_bindings: {click: cancel_button_click}
-    
-    name: button_panel
-    properties:
-      spacing: medium
-      align: center
-    type: FlowPanel
     layout_properties: {margin: 20}
-  
+    name: button_panel
+    properties: {align: center, spacing: medium}
+    type: FlowPanel
   - components:
     - name: firstname_label
-      properties:
-        text: "Prénom"
-        font_size: 16
-        bold: true
-        foreground: '#8b7355'
-        font_family: Quicksand
+      properties: {bold: true, font_family: Quicksand, font_size: 16, foreground: '#8b7355', text: Prénom}
       type: Label
-    
     - name: firstname_input
-      properties:
-        background: '#FFFFFF'
-        border_radius: 8
-        font_family: Quicksand
-        font_size: 16
-        enabled: false
+      properties: {background: '#FFFFFF', border_radius: 8, enabled: false, font_family: Quicksand, font_size: 16}
       type: TextBox
-    
     - name: lastname_label
-      properties:
-        text: "Nom"
-        font_size: 16
-        bold: true
-        foreground: '#8b7355'
-        font_family: Quicksand
+      properties: {bold: true, font_family: Quicksand, font_size: 16, foreground: '#8b7355', text: Nom}
       type: Label
-    
     - name: lastname_input
-      properties:
-        background: '#FFFFFF'
-        border_radius: 8
-        font_family: Quicksand
-        font_size: 16
-        enabled: false
+      properties: {background: '#FFFFFF', border_radius: 8, enabled: false, font_family: Quicksand, font_size: 16}
       type: TextBox
-    
     - name: email_label
-      properties:
-        text: "Email"
-        font_size: 16
-        bold: true
-        foreground: '#8b7355'
-        font_family: Quicksand
+      properties: {bold: true, font_family: Quicksand, font_size: 16, foreground: '#8b7355', text: Email}
       type: Label
-    
     - name: email_input
-      properties:
-        background: '#FFFFFF'
-        border_radius: 8
-        font_family: Quicksand
-        font_size: 16
-        enabled: false
+      properties: {background: '#FFFFFF', border_radius: 8, enabled: false, font_family: Quicksand, font_size: 16}
       type: TextBox
-    
-    name: info_panel
-    properties:
-      spacing: medium
-      background: '#FFFFFF'
-      border_radius: 8
-      padding: 20
-      role: card
-    type: ColumnPanel
     layout_properties: {margin: 20, width: 400}
-  
-  name: main_panel
-  properties:
-    spacing: medium
-    background: '#f5f0e6'
-    padding: 20
-  type: ColumnPanel
+    name: info_panel
+    properties: {background: '#FFFFFF', border_radius: 8, padding: 20, role: card, spacing: medium}
+    type: ColumnPanel
   layout_properties: {align: center}
-
-container:
+  name: main_panel
+  properties: {background: '#f5f0e6', padding: 20, spacing: medium}
   type: ColumnPanel
-  properties:
-    background: '#f5f0e6'
+container:
+  properties: {background: '#f5f0e6'}
+  type: ColumnPanel
 is_package: true

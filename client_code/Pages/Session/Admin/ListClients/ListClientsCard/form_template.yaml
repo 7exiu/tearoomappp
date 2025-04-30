@@ -1,46 +1,29 @@
 components:
 - components:
-  - name: profile_photo
-    properties: {height: 100, width: 100, border_radius: 50}
+  - layout_properties: {width: 100}
+    name: profile_photo
+    properties: {border_radius: 50, height: 100, width: 100}
     type: Image
-    layout_properties: {width: 100}
-  
-  - name: label_name
-    properties: {font_size: 18, bold: true, foreground: '#8b7355'}
+  - layout_properties: {width: 200}
+    name: label_name
+    properties: {bold: true, font_size: 18, foreground: '#8b7355'}
     type: Label
-    layout_properties: {width: 200}
-  
-  - name: label_email
+  - layout_properties: {width: 250}
+    name: label_email
     properties: {font_size: 14, foreground: '#666666'}
     type: Label
-    layout_properties: {width: 250}
-  
-  - name: label_role
+  - layout_properties: {width: 100}
+    name: label_role
     properties: {font_size: 14, foreground: '#666666'}
     type: Label
-    layout_properties: {width: 100}
-  
-  - name: desactiver
-    properties: 
-      text: Désactiver
-      background: '#BA1A1A'
-      foreground: '#FFFFFF'
-      bold: true
-    type: Button
+  - event_bindings: {click: desactiver_click}
     layout_properties: {width: 120}
-    event_bindings: {click: desactiver_click}
-  
-  name: flow_panel_1
-  properties: 
-    spacing: medium
-    align: center
-    background: '#FFFFFF'
-    border: 1
-    border_radius: 8
-    role: card
-  type: FlowPanel
+    name: desactiver
+    properties: {background: '#BA1A1A', bold: true, foreground: '#FFFFFF', text: Désactiver}
+    type: Button
   layout_properties: {margin: 10}
-
-container:
-  type: ColumnPanel
+  name: flow_panel_1
+  properties: {align: center, background: '#FFFFFF', border: 1, border_radius: 8, role: card, spacing: medium}
+  type: FlowPanel
+container: {type: ColumnPanel}
 is_package: true

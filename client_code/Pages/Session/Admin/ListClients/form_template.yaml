@@ -1,25 +1,13 @@
 components:
-- name: title_label
-  properties:
-    text: Liste des Clients
-    font_size: 24
-    bold: true
-    foreground: '#8b7355'
-    align: center
-    font_family: Playfair Display
+- layout_properties: {margin: 20}
+  name: title_label
+  properties: {align: center, bold: true, font_family: Playfair Display, font_size: 24, foreground: '#8b7355', text: Liste des Clients}
   type: Label
-  layout_properties: {margin: 20}
-
-- name: repeating_panel_1
-  properties:
-    item_template: Pages.Session.Admin.ListClients.ListClientsCard
+- layout_properties: {margin: 10}
+  name: repeating_panel_1
+  properties: {item_template: Pages.Session.Admin.ListClients.ListClientsCard}
   type: RepeatingPanel
-  layout_properties: {margin: 10}
-
 container:
+  properties: {background: '#f5f0e6', padding: 20, spacing: medium}
   type: ColumnPanel
-  properties:
-    background: '#f5f0e6'
-    spacing: medium
-    padding: 20
 is_package: true

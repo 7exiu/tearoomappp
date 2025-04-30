@@ -60,6 +60,7 @@ unique_ids:
     AdminController.AddUserController.crud: '1745867751452267451105260.71335'
     CartController: '1744547557725727823168843.4679'
     ProductsController: '1744407809611602178200198.5619'
+    ProductsController.AddProductController.crud: CU6HCPVXYH73LPRV5LHEHM3XDL4ENAYF
     ProductsController.GoodiesController: '1744493142148445748485602.2367'
     ProductsController.GoodiesController.crud: '17444933434019491600231.415487'
     ProductsController.GoodiesController.stats: '1744493350448543564971336.29486'
