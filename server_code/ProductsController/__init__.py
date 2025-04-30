@@ -3,6 +3,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 
+# Import de la fonction pour la rendre disponible
 from .AddProductController.crud import add_product
 
 # This is a server package. It runs on the Anvil server,
@@ -17,6 +18,3 @@ from .AddProductController.crud import add_product
 #   print("Hello, " + name + "!")
 #   return 42
 #
-
-# Rendre la fonction disponible au niveau du module
-add_product = add_product
