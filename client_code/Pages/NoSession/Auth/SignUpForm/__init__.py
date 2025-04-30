@@ -13,10 +13,11 @@ import time
 class SignUpForm(SignUpFormTemplate):
   def __init__(self, **properties):
     self.init_components(**properties)
-    self.sign_up_form_buttons.submit_button.add_event_handler('click', self.on_submit_click)
-    self.photo_loader.file_types = ['.jpg', '.png']
+    # Initialisation des gestionnaires d'événements
     self.credentials_fields.password_field.add_event_handler('change', self.on_password_change)
-      
+    self.sign_up_form_buttons.submit_button.add_event_handler('click', self.submit_click)
+    self.photo_loader.file_types = ['.jpg', '.png']
+
   def on_password_change(self, **event_args):
     password = self.credentials_fields.password_field.text
     if password:
@@ -38,48 +39,61 @@ class SignUpForm(SignUpFormTemplate):
     else:
       self.password_strength.text = ""
       
-  def on_submit_click(self, **event_args):
-    photo = self.file_loader_1.file
-    firstname = self.name_fields.firstname_field.text 
-    lastname = self.name_fields.lastname_field.text
-    email = self.credentials_fields.email_field.text
-    password = self.credentials_fields.password_field.text
-    confirmed_password = self.confirmed_password_field.text
-
-    if not firstname or not lastname or not email or not password or not confirmed_password:
-        Notification("Tous les champs doivent être remplis", style="danger").show()
-        return
-
-    if password != confirmed_password:
-        Notification("Les mots de passe ne correspondent pas", style="danger").show()
-        return  
-
-    entropie, taille_alphabet, redon = anvil.server.call('calculer_entropie', password)
-    securite = anvil.server.call('evaluer_securite', entropie)
-    
-    if securite == "Invalide":
-      Notification("Le mot de passe doit contenir au moins 12 caractères, incluant majuscules, minuscules, chiffres et caractères spéciaux", style="danger").show()
-      return
-    if securite in ["Très faible", "Faible", "Moyenne"]:
-      Notification(f"Le mot de passe est trop faible : {securite}", style="danger").show()
-      return
-
+  def submit_click(self, **event_args):
+    """Cette méthode est appelée quand le bouton de soumission est cliqué"""
     try:
-        photo = anvil.server.call("add_metadata", photo, email)
+        # Récupération des valeurs des champs
+        photo = self.photo_loader.file
+        firstname = self.name_fields.firstname_field.text 
+        lastname = self.name_fields.lastname_field.text
+        email = self.credentials_fields.email_field.text
+        password = self.credentials_fields.password_field.text
+        confirmed_password = self.confirmed_password_field.text
+
+        # Validation des champs requis
+        if not firstname or not lastname or not email or not password or not confirmed_password:
+            Notification("Tous les champs doivent être remplis", style="danger").show()
+            return
+
+        # Validation de la correspondance des mots de passe
+        if password != confirmed_password:
+            Notification("Les mots de passe ne correspondent pas", style="danger").show()
+            return  
+
+        # Validation de la force du mot de passe
+        entropie, taille_alphabet, redon = anvil.server.call('calculer_entropie', password)
+        securite = anvil.server.call('evaluer_securite', entropie)
+        
+        if securite == "Invalide":
+            Notification("Le mot de passe doit contenir au moins 12 caractères, incluant majuscules, minuscules, chiffres et caractères spéciaux", style="danger").show()
+            return
+        if securite in ["Très faible", "Faible", "Moyenne"]:
+            Notification(f"Le mot de passe est trop faible : {securite}", style="danger").show()
+            return
+
+        # Ajout des métadonnées à la photo si elle existe
+        if photo:
+            photo = anvil.server.call("add_metadata", photo, email)
+
+        # Création de l'utilisateur
         response = anvil.server.call('add_user', firstname, lastname, email, password, photo)
-        Notification(response, style="success").show()
-
-        self.name_fields.firstname_field.text = ""
-        self.name_fields.lastname_field.text = ""
-        self.credentials_fields.email_field.text = ""
-        self.credentials_fields.password_field.text = ""
-        self.confirmed_password_field.text = ""
-        self.password_strength.text = ""
-
-        get_open_form().load_page("login")
+        
+        if response == "success":
+            Notification("Inscription réussie ! Vous pouvez maintenant vous connecter.", style="success").show()
+            # Réinitialisation des champs
+            self.name_fields.firstname_field.text = ""
+            self.name_fields.lastname_field.text = ""
+            self.credentials_fields.email_field.text = ""
+            self.credentials_fields.password_field.text = ""
+            self.confirmed_password_field.text = ""
+            self.password_strength.text = ""
+            # Redirection vers la page de connexion
+            get_open_form().load_page("login")
+        else:
+            Notification(f"Erreur lors de l'inscription : {response}", style="danger").show()
 
     except Exception as e:
-        Notification(f"Erreur lors de la communication avec le serveur : {e}", style="danger").show()
+        Notification(f"Erreur lors de l'inscription : {str(e)}", style="danger").show()
 
   def file_loader_1_change(self, file, **event_args):
     """This method is called when a new file is loaded into this FileLoader"""

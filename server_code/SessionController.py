@@ -21,9 +21,11 @@ def login_user(email, password):
 
 @anvil.server.callable
 def logout_user():
-  print(f"SESSION ITEMS: {anvil.server.session}")
-  anvil.server.session.clear()
-  print(f"SESSION ITEMS: {anvil.server.session}")
+    # Supprimer individuellement les clés de session
+    if 'user_email' in anvil.server.session:
+        del anvil.server.session['user_email']
+    if 'user_id' in anvil.server.session:
+        del anvil.server.session['user_id']
   
 @anvil.server.callable
 def set_user_info(email, id):
@@ -33,8 +35,8 @@ def set_user_info(email, id):
 
 @anvil.server.callable  
 def get_all_users():
-  print("📋 Récupération de tous les utilisateurs...")
-  return list(app_tables.users.search())
+    print("📋 Récupération de tous les utilisateurs...")
+    return list(app_tables.users.search())
 
 @anvil.server.callable
 def get_user_info():
