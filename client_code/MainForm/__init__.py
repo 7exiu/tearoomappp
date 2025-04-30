@@ -22,13 +22,16 @@ from ..Pages.NoSession.Products.Tables import Tables
 
 class MainForm(MainFormTemplate):
   def __init__(self, **properties):
+    # S'assurer qu'aucune session n'est active au démarrage
+    anvil.server.call('logout_user')
+    
     self.init_components(**properties)
     self.update_navbar_buttons()
     self.load_page("landing")
 
   def update_navbar_buttons(self):
     user_info = anvil.server.call('get_user_info')
-    if user_info:
+    if user_info and user_info.get('user_email'):  # Vérification plus stricte de la connexion
       self.login_link.visible = False
       self.logout_link.visible = True
     else:
@@ -109,10 +112,9 @@ class MainForm(MainFormTemplate):
     self.update_navbar_buttons()
     get_open_form().load_page("landing")
 
-  def button_1_click(self, **event_args):
-    """This method is called when the button is clicked"""
+  def cart_link_click(self, **event_args):
+    """This method is called when the cart link is clicked"""
     get_open_form().load_page("cart")
-    pass
   
 
 
