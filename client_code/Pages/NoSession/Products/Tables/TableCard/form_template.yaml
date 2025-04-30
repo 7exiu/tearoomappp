@@ -1,0 +1,51 @@
+components:
+- components:
+  - data_bindings:
+    - {code: 'self.item[''name'']', property: text, writeback: false}
+    layout_properties: {expand: false}
+    name: table_card_title
+    properties: {font: italic, font_size: 18, foreground: 'theme:On Primary'}
+    type: Label
+  - components:
+    - components:
+      - layout_properties: {}
+        name: table_card_is_available
+        properties: {font: '', font_size: 14, foreground: 'theme:On Primary'}
+        type: Label
+      name: table_card_availability_panel
+      properties: {}
+      type: FlowPanel
+    - components:
+      - data_bindings:
+        - {code: 'self.item[''chairs_count'']', property: text, writeback: false}
+        layout_properties: {}
+        name: table_card_capacity
+        properties: {font: '', foreground: 'theme:On Primary'}
+        type: Label
+      name: table_card_capacity_panel
+      properties: {}
+      type: FlowPanel
+    layout_properties: {expand: true}
+    name: table_card_availability_capacity
+    properties: {}
+    type: FlowPanel
+  - event_bindings: {click: table_card_booking_button_click}
+    layout_properties: {}
+    name: table_card_booking_button
+    properties:
+      foreground: ''
+      role: elevated-button
+      spacing:
+        margin: [null, '0', null, '0']
+      text: BOOK
+    type: Button
+  layout_properties: {grid_position: 'QAQQAW,NONWIB'}
+  name: table_card_row_panel
+  properties:
+    background: theme:Primary
+    spacing:
+      padding: [null, '10', null, '10']
+    vertical_align: middle
+  type: FlowPanel
+container: {type: ColumnPanel}
+is_package: true

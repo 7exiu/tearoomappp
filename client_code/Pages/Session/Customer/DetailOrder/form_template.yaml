@@ -1,0 +1,7 @@
+components:
+- layout_properties: {grid_position: 'OWAUFN,MAAHPI'}
+  name: repeating_panel_1
+  properties: {item_template: Pages.Session.Customer.DetailOrder.ItemTemplate2}
+  type: RepeatingPanel
+container: {type: ColumnPanel}
+is_package: true

@@ -1,0 +1,11 @@
+components:
+- layout_properties: {grid_position: 'KBRNYW,UDGEWB'}
+  name: repeating_panel_1
+  properties: {item_template: Pages.Session.Customer.Orders.ItemTemplate1}
+  type: RepeatingPanel
+- layout_properties: {grid_position: 'SOZTOK,EOUBAU'}
+  name: recu
+  properties: {text: Télécharger reçu}
+  type: Button
+container: {type: ColumnPanel}
+is_package: true

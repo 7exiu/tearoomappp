@@ -1,0 +1,63 @@
+components:
+- components: []
+  layout_properties: {slot: default}
+  name: dashboard_panel
+  properties:
+    spacing:
+      margin: [null, null, null, 0]
+      padding: [null, '0', null, 0]
+  type: ColumnPanel
+- components:
+  - event_bindings: {click: profile_link_click}
+    name: profile_link
+    properties:
+      background: '#f9f1f3'
+      border: ''
+      role: selected
+      spacing:
+        margin: ['3', '3', '3', '3']
+      text: Profile
+    type: Link
+  - components: []
+    event_bindings: {click: cart_link_click}
+    layout_properties: {}
+    name: cart_link_copy
+    properties:
+      spacing:
+        margin: [null, '3', null, '3']
+      text: Ajouter un Produit
+    type: Link
+  - event_bindings: {click: orders_link_click}
+    layout_properties: {}
+    name: orders_link_copy
+    properties:
+      spacing:
+        margin: [null, '3', null, '3']
+      text: Liste des Clients
+    type: Link
+  - components: []
+    event_bindings: {click: link_1_click}
+    layout_properties: {}
+    name: link_1
+    properties:
+      spacing:
+        margin: [null, '3', null, '3']
+      text: 'Liste des produits '
+    type: Link
+  layout_properties: {slot: left-nav}
+  name: linear_panel_1
+  properties: {}
+  type: LinearPanel
+- layout_properties: {slot: title}
+  name: outlined_1
+  properties: {background: 'theme:Primary Container', bold: true, italic: true, role: outlined, text: 'DASHBOARD_Admin ', underline: true}
+  type: TextBox
+- event_bindings: {click: link_2_click}
+  layout_properties: {slot: nav-right}
+  name: link_2
+  properties: {background: '#ecccc1', text: TeasRoom}
+  type: Link
+container:
+  properties: {background: '#dbbeb4', html: '@theme:standard-page.html'}
+  type: HtmlTemplate
+is_package: true

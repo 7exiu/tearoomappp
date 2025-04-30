@@ -1,0 +1,45 @@
+components:
+- components:
+  - data_bindings:
+    - {code: 'self.item[''image'']', property: source, writeback: false}
+    layout_properties: {width: 294.33331298828125}
+    name: cart_image
+    properties: {height: 132}
+    type: Image
+  - data_bindings:
+    - {code: 'self.item[''name'']', property: text, writeback: false}
+    layout_properties: {expand: false}
+    name: cart_name
+    properties: {font: italic, font_size: 18, foreground: 'theme:On Primary', role: headline}
+    type: Label
+  - layout_properties: {width: 298.625}
+    name: spacer_2
+    properties: {height: 32}
+    type: Spacer
+  - name: cart_price
+    properties: {font: '', font_size: 14, foreground: 'theme:On Primary'}
+    type: Label
+  - layout_properties: {width: 47.312625976562515}
+    name: spacer_1
+    properties: {height: 32}
+    type: Spacer
+  - event_bindings: {click: table_card_booking_button_click}
+    layout_properties: {}
+    name: tea_link
+    properties:
+      foreground: ''
+      role: elevated-button
+      spacing:
+        margin: [null, '0', null, '0']
+      text: More
+    type: Button
+  layout_properties: {grid_position: 'GIOWQK,DAYVIX'}
+  name: table_card_row_panel
+  properties:
+    background: theme:Primary
+    spacing:
+      padding: [null, '10', null, '10']
+    vertical_align: middle
+  type: FlowPanel
+container: {type: ColumnPanel}
+is_package: true

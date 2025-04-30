@@ -1,0 +1,38 @@
+components:
+- components: []
+  layout_properties: {grid_position: 'TQZOPW,XRMCDS'}
+  name: tables_panel
+  properties: {align: center, role: null}
+  type: FlowPanel
+- layout_properties: {grid_position: 'HTERKQ,IVWYWV'}
+  name: teas_panel
+  properties: {role: scrollable}
+  type: FlowPanel
+- layout_properties: {grid_position: 'YOKIRC,EWFSZY'}
+  name: spacer_2
+  properties: {height: 10.666656494140625}
+  type: Spacer
+- event_bindings: {click: teas_list_button_click}
+  layout_properties: {grid_position: 'NUQPDT,VMLMPY'}
+  name: teas_list_button
+  properties: {background: '', bold: true, foreground: '', icon: 'fa:list', role: elevated-button, text: DISCOVER OUR FULL LIST OF TEAS}
+  type: Button
+- layout_properties: {grid_position: 'GNBPFR,WCYURJ'}
+  name: goodie_panel
+  properties: {role: scrollable}
+  type: FlowPanel
+- layout_properties: {grid_position: 'JSQNXY,KXKDJS'}
+  name: spacer_1
+  properties: {height: 16.5}
+  type: Spacer
+- event_bindings: {click: goodies_list_button_click}
+  layout_properties: {grid_position: 'YBLUQA,RVFPYL'}
+  name: goodies_list_button
+  properties: {bold: true, icon: 'fa:list', role: elevated-button, text: DISCOVER OUR FULL LIST OF GOODIES}
+  type: Button
+- layout_properties: {grid_position: 'HVTNFN,FPQBHH'}
+  name: spacer_3
+  properties: {height: 20.6666259765625}
+  type: Spacer
+container: {type: ColumnPanel}
+is_package: true
