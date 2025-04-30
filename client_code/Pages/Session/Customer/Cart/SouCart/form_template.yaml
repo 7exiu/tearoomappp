@@ -2,44 +2,71 @@ components:
 - components:
   - data_bindings:
     - {code: 'self.item[''image'']', property: source, writeback: false}
-    layout_properties: {width: 294.33331298828125}
+    layout_properties: {width: 266.515625}
     name: cart_image
-    properties: {height: 132}
+    properties: {display_mode: fill_width, height: 177.7734375}
     type: Image
-  - data_bindings:
-    - {code: 'self.item[''name'']', property: text, writeback: false}
-    layout_properties: {expand: false}
-    name: cart_name
-    properties: {font: italic, font_size: 18, foreground: 'theme:On Primary', role: headline}
+  - components:
+    - data_bindings:
+      - {code: 'self.item[''name'']', property: text, writeback: false}
+      name: cart_name
+      properties: {}
+      type: Label
+    - data_bindings:
+      - {code: 'self.item[''price'']', property: text, writeback: false}
+      layout_properties: {}
+      name: cart_price
+      properties: {align: right}
+      type: Label
+    layout_properties: {width: 458.9375}
+    name: tea_card_info_linear_panel
+    properties: {}
+    type: LinearPanel
+  - name: cart_date
+    properties: {}
     type: Label
-  - layout_properties: {width: 298.625}
-    name: spacer_2
-    properties: {height: 32}
-    type: Spacer
-  - name: cart_price
-    properties: {font: '', font_size: 14, foreground: 'theme:On Primary'}
+  - layout_properties: {grid_position: 'VNVEGT,LXKJVF'}
+    name: product_name
+    properties: {text: ''}
     type: Label
-  - layout_properties: {width: 47.312625976562515}
-    name: spacer_1
-    properties: {height: 32}
-    type: Spacer
-  - event_bindings: {click: table_card_booking_button_click}
-    layout_properties: {}
-    name: tea_link
+  - layout_properties: {grid_position: 'URILQU,QQZHVP'}
+    name: product_price
+    properties: {text: ''}
+    type: Label
+  - layout_properties: {grid_position: 'XGILJI,HQDPRK'}
+    name: quantity_label
+    properties: {text: '1'}
+    type: Label
+  - layout_properties: {grid_position: 'SFBRGQ,QHHRGF', expand: false}
+    name: decrease_button
     properties:
-      foreground: ''
-      role: elevated-button
-      spacing:
-        margin: [null, '0', null, '0']
-      text: More
+      text: '-'
+      icon: 'fa:minus'
+      background: '#dbbeb4'
+      foreground: '#ffffff'
+      bold: true
     type: Button
-  layout_properties: {grid_position: 'GIOWQK,DAYVIX'}
-  name: table_card_row_panel
-  properties:
-    background: theme:Primary
-    spacing:
-      padding: [null, '10', null, '10']
-    vertical_align: middle
+  - layout_properties: {grid_position: 'POJWJO,PAYXXS', expand: false}
+    name: increase_button
+    properties:
+      text: '+'
+      icon: 'fa:plus'
+      background: '#dbbeb4'
+      foreground: '#ffffff'
+      bold: true
+    type: Button
+  - layout_properties: {grid_position: 'BJJGVQ,ITHOBC', expand: false}
+    name: delete_button
+    properties:
+      text: 'Supprimer'
+      icon: 'fa:trash'
+      background: '#ff6b6b'
+      foreground: '#ffffff'
+      bold: true
+    type: Button
+  layout_properties: {grid_position: 'REDKJP,ITXSED'}
+  name: goodie_card_flow_panel
+  properties: {}
   type: FlowPanel
 container: {type: ColumnPanel}
 is_package: true

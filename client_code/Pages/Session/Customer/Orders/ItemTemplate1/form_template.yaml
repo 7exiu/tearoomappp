@@ -1,47 +1,84 @@
 components:
 - components:
-  - data_bindings:
-    - {code: 'self.item[''name'']', property: text, writeback: false}
-    layout_properties: {expand: false}
-    name: order_name
-    properties: {font: italic, font_size: 18, foreground: 'theme:On Primary', role: headline, text: ''}
-    type: Label
-  - layout_properties: {width: 298.625}
-    name: spacer_2
-    properties: {height: 32}
-    type: Spacer
-  - name: order_date
-    properties: {}
-    type: Label
-  - name: order_price
-    properties: {font: '', font_size: 14, foreground: 'theme:On Primary'}
-    type: Label
-  - layout_properties: {width: 47.312625976562515}
-    name: spacer_1
-    properties: {height: 32}
-    type: Spacer
-  - event_bindings: {click: table_card_booking_button_click}
-    layout_properties: {}
-    name: detail_buotton
+  - name: order_info
     properties:
-      foreground: ''
-      role: elevated-button
+      background: '#ffffff'
+      border_radius: '8px'
+      box_shadow: '0 2px 4px rgba(0,0,0,0.1)'
       spacing:
-        margin: [null, '0', null, '0']
-      text: Détails
-    type: Button
-  - event_bindings: {change: finish_change}
-    layout_properties: {}
-    name: finish
-    properties: {text: Terminé}
-    type: CheckBox
-  layout_properties: {grid_position: 'NCHFBI,LRUPNX'}
-  name: table_card_row_panel
+        padding: ['15', '15', '15', '15']
+    type: ColumnPanel
+    components:
+    - name: order_header
+      properties:
+        spacing:
+          margin: ['0', '0', '10', '0']
+      type: LinearPanel
+      components:
+      - name: order_date
+        properties:
+          text: 'Date: {{item["time"]}}'
+          font_size: 14
+          font_family: 'Quicksand'
+          foreground: '#8b7355'
+        type: Label
+      - name: order_status
+        properties:
+          text: 'Statut: {{item["status"]}}'
+          font_size: 14
+          font_family: 'Quicksand'
+          foreground: '#8b7355'
+          align: right
+        type: Label
+    - name: order_details
+      properties:
+        spacing:
+          margin: ['0', '0', '10', '0']
+      type: LinearPanel
+      components:
+      - name: order_name
+        properties:
+          text: '{{item["name"]}}'
+          font_size: 16
+          font_family: 'Quicksand'
+          foreground: '#4a4a4a'
+          bold: true
+        type: Label
+      - name: order_price
+        properties:
+          text: '{{item["price"]}} €'
+          font_size: 16
+          font_family: 'Quicksand'
+          foreground: '#4a4a4a'
+          align: right
+        type: Label
+    - name: view_details_button
+      properties:
+        background: '#d4b483'
+        text: Voir les détails
+        icon: fa:eye
+        icon_align: left
+        foreground: '#ffffff'
+        font_size: 14
+        font_family: 'Quicksand'
+        spacing:
+          padding: ['10', '10', '10', '10']
+        hover_background: '#c19e6b'
+        border_radius: '6px'
+        box_shadow: '0 2px 4px rgba(0,0,0,0.1)'
+      type: Link
+  layout_properties: {slot: default}
+  name: column_panel_1
   properties:
-    background: theme:Primary
     spacing:
-      padding: [null, '10', null, '10']
-    vertical_align: middle
-  type: FlowPanel
-container: {type: ColumnPanel}
+      margin: ['0', '0', '10', '0']
+  type: ColumnPanel
+container:
+  properties:
+    background: '#f5f0e6'
+    html: '@theme:standard-page.html'
+  type: HtmlTemplate
+<<<<<<< HEAD
+=======
 is_package: true
+>>>>>>> 4f7b4ab (style)

@@ -1,0 +1,39 @@
+components:
+- components:
+  - data_bindings:
+    - {code: 'self.item[''name'']', property: text, writeback: false}
+    layout_properties: {expand: false}
+    name: product_name
+    properties: 
+      font_size: 16
+      foreground: '#dbbeb4'
+      bold: true
+    type: Label
+  - data_bindings:
+    - {code: 'self.item[''quantity'']', property: text, writeback: false}
+    layout_properties: {expand: false}
+    name: product_quantity
+    properties: 
+      font_size: 14
+      foreground: '#666666'
+    type: Label
+  - data_bindings:
+    - {code: 'self.item[''price'']', property: text, writeback: false}
+    layout_properties: {expand: false}
+    name: product_price
+    properties: 
+      font_size: 16
+      foreground: '#dbbeb4'
+      bold: true
+    type: Label
+  layout_properties: {grid_position: 'YUHGLC,LTEOTU'}
+  name: product_card
+  properties:
+    background: '#ffffff'
+    spacing:
+      padding: ['20', '20', '20', '20']
+      margin: ['10', '10', '10', '10']
+    role: elevated-card
+  type: FlowPanel
+container: {type: ColumnPanel}
+is_package: true 

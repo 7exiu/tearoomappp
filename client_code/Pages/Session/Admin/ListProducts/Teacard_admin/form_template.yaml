@@ -1,0 +1,37 @@
+components:
+- components:
+  - data_bindings:
+    - {code: 'self.item[''image'']', property: source, writeback: false}
+    layout_properties: {width: 266.515625}
+    name: cart_image
+    properties: {display_mode: fill_width}
+    type: Image
+  - components:
+    - data_bindings: []
+      event_bindings: {}
+      layout_properties: {}
+      name: cart_name
+      properties: {icon: ''}
+      type: Label
+    - data_bindings:
+      - {code: 'self.item[''description'']', property: text, writeback: false}
+      layout_properties: {}
+      name: cart_description
+      properties: {icon: ''}
+      type: Label
+    - data_bindings:
+      - {code: 'self.item[''price'']', property: text, writeback: false}
+      layout_properties: {}
+      name: cart_price
+      properties: {align: right}
+      type: Label
+    layout_properties: {width: 458.9375}
+    name: cart_card_info_linear_panel
+    properties: {}
+    type: LinearPanel
+  layout_properties: {grid_position: 'ZDGGIH,EJDSIW'}
+  name: cart_card_flow_panel
+  properties: {}
+  type: FlowPanel
+container: {type: ColumnPanel}
+is_package: true

@@ -12,24 +12,38 @@ from .SouCart import SouCart
 class Cart(CartTemplate):
     def __init__(self, **properties):
       self.init_components(**properties)
-      self.cart_repeating_panel.item_template = SouCart
-      self.cart = anvil.server.call('get_card')
-      self.cart_repeating_panel.items = self.cart
-      print(self.cart)
-      total = sum(item['price'] for item in self.cart)
-      self.total_label.text = f"Total : {total} €"
-      self.code_label.text = "Code a 16 chiffres"
-      self.date_label.text = "Date expiration"
-      self.crypto_label.text = "cryptogramme"
-      self.outlined_button_1.set_event_handler('click', self.button_pop_click)
-      souscart= anvil.server.call("panier")
-      self.cart_repeating_panel.item_template = SouCart
-      self.cart_repeating_panel.items = souscart
+      self.load_cart()
+      self.update_dashboard_button()
 
-    def button_pop_click(self, **event_args):
-      alert("Votre commande a était prise en compte")
-      anvil.server.call('delete_card')
+    def load_cart(self):
+      # Récupérer le panier de l'utilisateur
+      user_id = anvil.server.call('get_user_info')['user_id']
+      cart = anvil.server.call('get_cart', user_id)
+      
+      if cart:
+        self.cart_repeating_panel.items = cart['content']
+        self.update_total()
+      else:
+        self.cart_repeating_panel.items = []
+        self.total_label.text = "Total: 0 €"
 
+    def update_total(self):
+      total = 0
+      for item in self.cart_repeating_panel.items:
+        total += item['price'] * item['quantity']
+      self.total_label.text = f"Total: {total} €"
+
+    def update_dashboard_button(self):
+      # Vérifier si une session est active
+      user_info = anvil.server.call('get_user_info')
+      self.dashboard_button.enabled = bool(user_info)
+
+    def dashboard_button_click(self, **event_args):
+      get_open_form().load_page('dashboard')
+
+    def outlined_button_1_click(self, **event_args):
+      # Logique de commande existante
+      pass
 
     def calculer_total(self):
       total = sum(item['price'] for item in state.cart_items)
